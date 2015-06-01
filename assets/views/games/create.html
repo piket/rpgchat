@@ -1,0 +1,61 @@
+<h1 class="center">Create a Game</h1>
+<form ng-submit="create()">
+<div class="row">
+    <div class="input-field col s12 m6 l4">
+        <input type="text" length="140" ng-model="name" id="name" ng-class="{invalid:invalid.name}">
+        <label for="name">Game Name</label>
+    </div>
+    <div class="input-field col s12 m6 l4">
+        <select ng-model="system" class="browser-default" ng-class="{invalid:invalid.system}">
+            <option value="none">Choose a Game System</option>
+            <option ng-repeat="system in systems | orderBy : sortName" value="{{system.id}}">{{system.name}}</option>
+        </select>
+        <!-- <label>Game System</label> -->
+    </div>
+    <div class="input-field col s12 m6 l4">
+        <select ng-model="sheet" class="browser-default" ng-class="{invalid:invalid.sheet}">
+            <option value="none">Choose a Character Sheet</option>
+            <option ng-repeat="sheet in sheets | orderBy : sortName" value="{{sheet.id}}">{{sheet.name}}</option>
+            <option value="custom">Custom</option>
+        </select>
+        <!-- <label>Character Sheet</label> -->
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m12 l12">
+        <textarea ng-model="description" id="description" class="materialize-textarea" ng-class="{invalid:invalid.description}"></textarea>
+        <label for="description">Description</label>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m6 l4">
+        <button type="submit" class="btn waves-effect waves-light purple">Create</button>
+    </div>
+    <div id="publicdesc" class="input-field col s12 m6 l4 tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{publicText}}">
+        <input type="checkbox" id="public" ng-model="public" checked="checked">
+        <label for="public">This is a {{public == true ? 'public' : 'private'}} game</label>
+    </div>
+    <div class="input-field col s12 m6 l4">
+        <button type="reset" class="btn waves-effect waves-light purple">Reset</button>
+    </div>
+</div>
+
+<div id="confirm-modal" class="modal">
+    <div class="modal-content">
+        <h4>Warning!</h4>
+        <p>You have not entered a description for you game! Do you want to create your game anyway?</p>
+    </div>
+    <div class="modal-footer">
+        <a ng-click="yes()" class="modal-action waves-effect waves-green btn-flat">Yes</a>
+        <a ng-click="no()" class="modal-action waves-effect waves-red btn-flat">No</a>
+    </div>
+</div>
+
+<div id="customsheet" class="modal">
+    <div class="modal-content">
+        <h4>Custom sheets are not yet avaliable</h4>
+    </div>
+    <div class="modal-footer">
+        <a ng-click="cancel()" class="modal-action waves-effect waves-red btn-flat">Cancel</a>
+    </div>
+</div>

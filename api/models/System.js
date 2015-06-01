@@ -1,5 +1,5 @@
 /**
-* Sheet.js
+* System.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -10,20 +10,18 @@ module.exports = {
   attributes: {
     name: {
         type: 'string',
-        required: true,
-        unique: true
-    },
-    macros: {
-        type: 'json'
-    },
-    form: {
-        type: 'array'
+        required: true
     },
 
     ////// Associations //////
 
-    system: {
-        model: 'System'
+    games: {
+        collection: 'Game',
+        via: 'system'
+    },
+    sheets: {
+        collection: 'Sheet',
+        via: 'system'
     }
   }
 };

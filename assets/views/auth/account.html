@@ -1,0 +1,41 @@
+<h1 class="center">Welcome {{user.username}}</h1>
+<div class="row">
+    <div class="col s12 m6 l4">
+        <h5 class="pane-header">
+            Your Games
+        </h5>
+        <ul class="collection account-pane">
+            <li ng-repeat="game in user.playingGames" class="collection-item" ng-class="{archived:!game.active}">
+                <h6>
+                    {{game.name}}
+                </h6>
+                <a href="/game/{{game.id}}/dashboard" class="btn waves-effect waves-light purple dash-btn"><i class="mdi-action-info"></i></a>
+                <a href="/game/{{game.id}}" class="btn waves-effect waves-light purple chat-btn"><i class="mdi-communication-chat"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div class="col s12 m6 l4">
+        <h5 class="pane-header">
+            Your GMed Games
+        </h5>
+        <ul class="collection account-pane">
+            <li ng-repeat="game in user.gmGames" class="collection-item" ng-class="{archived:!game.active}">
+                <h6>
+                    {{game.name}}
+                </h6>
+                <a href="/game/{{game.id}}/dashboard" class="btn waves-effect waves-light purple dash-btn"><i class="mdi-action-dashboard"></i></a>
+                <a href="/game/{{game.id}}" class="btn waves-effect waves-light purple chat-btn"><i class="mdi-communication-chat"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div class="col s12 m6 l4">
+        <h5 class="pane-header">
+            Your Characters
+        </h5>
+        <div class="collection account-pane">
+            <a ng-repeat="character in user.characters" class="collection-item" href="/character/{{character.id}}">
+                {{character.name}}
+            </a>
+        </div>
+    </div>
+</div>

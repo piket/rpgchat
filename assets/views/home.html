@@ -1,0 +1,63 @@
+<h1 class="center">Welcome to RPGChat!</h1>
+<div class="col s6 m4 l4 offset-s3 offset-m4 offset-l4">
+    <div class="row">
+        <div ng-hide="showSignup" class="center"><a ng-click="toggleLogin()" class="waves-effect waves-purple btn-flat">{{showLogin ? 'Cancel' : 'Login'}}</a></div>
+        <div ng-show="showLogin" class="row">
+            <div class="col s6 m4 l4 offset-m4 offset-l4">
+                <form ng-submit="login()">
+                    <div class="row">
+                        <div class="input-field">
+                            <input type="text" ng-model="username" id="username" class="validate" ng-class="{invalid: invalid.login}">
+                            <label for="username">Username</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field">
+                            <input type="password" ng-model="password" id="password" class="validate" ng-class="{invalid: invalid.login}">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <button class="btn waves-effect waves-light purple" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-hide="showLogin" class="center"><a ng-click="toggleSignup()" class="waves-effect waves-purple btn-flat">{{showSignup ? 'Cancel' : 'Sign Up'}}</a></div>
+        <div ng-show="showSignup" class="row">
+            <div class="col s6 m4 l4 offset-s3 offset-m4 offset-l4">
+                <form ng-submit="signup()">
+                    <div class="row">
+                        <div class="input-field">
+                            <input type="text" ng-model="username" id="username" class="validate" ng-class="{invalid: invalid.name}">
+                            <label for="username">Username</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field">
+                            <input type="email" ng-model="email" id="email" class="validate" ng-class="{invalid: invalid.email}">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field">
+                            <input type="password" ng-model="password" id="password" class="validate" ng-class="{invalid: invalid.password}">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field">
+                            <input type="password" ng-model="confirm" id="passwordConfirm" class="validate" ng-class="{invalid: invalid.confirm}">
+                            <label for="passwordConfirm">Confirm Password</label>
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <button class="btn waves-effect waves-light purple" type="submit">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

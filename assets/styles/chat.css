@@ -1,0 +1,17 @@
+.as {
+    font-weight: bold;
+    color: black;
+}
+
+.chat-view {
+    overflow: auto;
+}
+
+.chat-message {
+    padding: 2px 12px 2px 12px;
+    border: 1px solid #e0e0e0;
+}
+
+.chat-message.system {
+    background-color: #ffe57f;
+}

@@ -1,0 +1,66 @@
+<h1 class="center">{{game.name}}</h1>
+<h5 class="center">Dashboard</h5>
+<div class="row">
+    <div class="col s12 m12 l12 center">
+        <a href="/game/{{game.id}}" class="waves-effect waves-purple btn-flat"><h5>Enter game room</h5></a>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m12 l12" ng-hide="edit.description">
+        <div class="flow-text">{{game.description || 'No description'}}</div>
+        <button ng-click="editor('description')" class="btn-floating waves-effect waves-light purple edit-btn"><i class="mdi-editor-mode-edit"></i></button>
+    </div>
+    <div class="col s12 m12 l12" ng-show="edit.description">
+        <form ng-submit="submitEdit('description')">
+            <div class="row">
+                <div class="input-field">
+                    <textarea ng-model="description" id="description" class="materialize-textarea" ng-class="{invalid:invalid.description}" style="height:100%"></textarea>
+                    <button type="submit" class="btn waves-effect waves-light purple"><i class="mdi-action-done"></i></button>
+                    <button ng-click="editor()" class="btn waves-effect waves-light red"><i class="mdi-navigation-close"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row center">
+    <div class="col s12 m6 l6">
+        <div ng-hide="edit.public">{{game.public ? 'This is a public game' : 'This is a private game'}} <button ng-click="editor('public')" class="btn-floating waves-effect waves-light purple"><i class="mdi-editor-mode-edit"></i></button></div>
+        <div ng-show="edit.public">
+            <form ng-submit="submitEdit('public')">
+                <div class="row">
+                    <div id="publicdesc" class="input-field col s12 m6 l4 tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{publicText}}">
+                        <input type="checkbox" id="public" ng-model="public">
+                        <label for="public">This is a {{public == true ? 'public' : 'private'}} game</label>
+                    </div>
+                    <button type="submit" class="btn waves-effect waves-light purple"><i class="mdi-action-done"></i></button>
+                    <button ng-click="editor()" class="btn waves-effect waves-light red"><i class="mdi-navigation-close"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col s12 m6 l6">
+        <div ng-hide="edit.active">{{game.active ? 'This game is currently running' : 'This game is archived'}} <button ng-click="editor('active')" class="btn-floating waves-effect waves-light purple"><i class="mdi-editor-mode-edit"></i></button></div>
+        <div ng-show="edit.active">
+            <form ng-submit="submitEdit('active')">
+                <div class="row input-field">
+                    <input type="checkbox" id="active" ng-model="active">
+                    <label for="active">This game will be {{active ? 'activated' : 'archived'}}</label>
+                    <button type="submit" class="btn waves-effect waves-light purple"><i class="mdi-action-done"></i></button>
+                    <button ng-click="editor()" class="btn waves-effect waves-light red"><i class="mdi-navigation-close"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m6 l6">
+        <ul class="collection">
+            <li class="collection-header"><h5 class="centered"><b>GM: </b>{{game.gm.username}}</h5></li>
+            <li class="collection-header"><h5>Players</h5></li>
+            <li ng-repeat="player in game.players" class="collection-item player">
+                {{player.username}}
+                <a  ng-if="user.id == player.id" href="/character/{{game.id}}" class="btn waves-effect waves-light purple character-btn"><i class="mdi-action-accessibility"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>

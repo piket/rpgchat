@@ -32,8 +32,17 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
+  '/': 'SiteController.index',
+  'get /api/auth': 'AuthController.check',
+  'post /api/auth': 'AuthController.login',
+  'delete /api/auth': 'AuthController.logout',
+  'post /api/signup': 'AuthController.signup',
+
+  'get *': {
+    controller:"SiteController",
+    action:"index",
+    skipAssets: true,
+    skipRegex: /^\/api\/.*$/
   }
 
   /***************************************************************************

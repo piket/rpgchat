@@ -8,7 +8,48 @@
 module.exports = {
 
   attributes: {
+    name: {
+        type: 'string',
+        required: true
+    },
+    description: {
+        type: 'text'
+    },
+    active: {
+        type: 'boolean',
+        defaultsTo: true
+    },
+    public: {
+        type: 'boolean',
+        defaultsTo: true
+    },
+    currentUsers: {
+        type: 'array'
+    },
 
+    ////// Associations //////
+
+    gm: {
+        model: 'User'
+    },
+    players: {
+        collection: 'User',
+        via: 'playingGames'
+    },
+    system: {
+        model: 'System'
+    },
+    sheetTemplate: {
+        model: 'Sheet'
+    },
+    characters: {
+        collection: 'Character',
+        via: 'game'
+    },
+    messages: {
+        collection: 'Chat',
+        via: 'game'
+    }
   }
 };
 

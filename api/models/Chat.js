@@ -8,7 +8,28 @@
 module.exports = {
 
   attributes: {
+    message: {
+        type: 'text',
+        required: true
+    },
+    to: {
+        type: 'array'
+    },
+    as: {
+        type: 'string'
+    },
+    flags: {
+        type: 'json'
+    },
 
+    ////// Associations //////
+
+    from: {
+        model: 'User'
+    },
+    game: {
+        model: 'Game'
+    }
   }
 };
 

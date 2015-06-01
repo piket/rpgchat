@@ -1,0 +1,139 @@
+.menu-btn {
+    top: 0;
+    right: 24px;
+}
+
+.menu-btn>ul {
+    top: 70px;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #9c27b0;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #9c27b0;
+    box-shadow: 0 1px 0 0 #9c27b0;
+}
+
+/* label focus color */
+.input-field input[type=password]:focus + label {
+    color: #9c27b0;
+}
+
+/* label underline focus color */
+.input-field input[type=password]:focus {
+    border-bottom: 1px solid #9c27b0;
+    box-shadow: 0 1px 0 0 #9c27b0;
+}
+
+/* label focus color */
+.input-field input[type=email]:focus + label {
+    color: #9c27b0;
+}
+
+/* label underline focus color */
+.input-field input[type=email]:focus {
+    border-bottom: 1px solid #9c27b0;
+    box-shadow: 0 1px 0 0 #9c27b0;
+}
+
+/* label focus color */
+.input-field textarea.materialize-textarea:focus + label {
+    color: #9c27b0;
+}
+
+/* label underline focus color */
+.input-field textarea.materialize-textarea:focus {
+    border-bottom: 1px solid #9c27b0;
+    box-shadow: 0 1px 0 0 #9c27b0;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #9c27b0;
+}
+
+.input-field input[type="checkbox"]:checked+label:before {
+    border-right-color: #9c27b0;
+    border-bottom-color: #9c27b0;
+}
+
+.input-field select:focus {
+    border: 1px solid #ea80fc;
+}
+
+.input-field select.invalid {
+    border: 1px solid #f44336;
+}
+
+.loader {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    z-index: 99998;
+    background-color: rgba(0,0,0,0.25);
+}
+
+.loader>div {
+    z-index: 99998;
+}
+
+.account-pane {
+    margin-top: 0;
+    height: 500px;
+    overflow: auto;
+}
+
+.pane-header {
+    text-align: center;
+    padding: 4px 12px 4px 12px;
+    border-top: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+    margin-bottom: 0;
+}
+
+.collection-item {
+    position: relative;
+}
+
+.chat-btn {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    padding: 0px 4px 4px 4px;
+}
+
+.dash-btn {
+    position: absolute;
+    right: 40px;
+    top: 4px;
+    padding: 0px 4px 4px 4px;
+}
+
+.card {
+    margin: 0.5rem 0.5rem 1rem 0.5rem;
+    height: 200px;
+}
+
+.card .card-action {
+    border-top: 1px solid #fff;
+}
+
+.card .card-content {
+    height: 132px;
+}
+
+.collection .collection-item .player {
+    padding-left: 50px;
+}
+
+.character-btn {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    padding: 0 4px 4px 4px;
+}
