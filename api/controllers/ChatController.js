@@ -14,6 +14,12 @@ module.exports = {
         Game.findOne(gameId).populateAll().then(function(game) {
             console.log('game found');
             user = null;
+            if(!game.active) {
+                sendGame = game;
+                sendGame.error = 'archived';
+                res.send(sendGame);
+                return;
+            }
             for(var i = 0; i < game.players.length; i++) {
                 if(game.players[i].id == req.body.userId) {
                     user = game.players[i];

@@ -3,6 +3,27 @@
     color: black;
 }
 
+.emote {
+    font-style: italic;
+    font-weight: bold;
+    background-color: #ffcc80;
+    color: #ff6d00;
+}
+
+.desc {
+    background-color: white;
+    color: black;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.think {
+    background-color: #e0f7fa;
+    color: #006064;
+    font-style: italic;
+    font-size: 80%;
+}
+
 .chat-view {
     overflow: auto;
 }
@@ -25,29 +46,86 @@
 
 .chat-default {
     color: black;
+    background-color: white;
+    border: 1px solid #e0e0e0;
 }
 
 .chat-blue {
     color: black;
-    background-color: blue;
+    background-color: #03a9f4;
+    border: 1px solid #01579b;
 }
 
-.chat-bluered {
+.chat-red {
     color: black;
-    background-color: red;
+    background-color: #ef5350;
+    border: 1px solid #b71c1c;
 }
 
 .chat-green {
     color: black;
-    background-color: green;
+    background-color: #66bb6a;
+    border: 1px solid #1b5e20;
 }
 
 .chat-yellow {
     color: black;
-    background-color: yellow;
+    background-color: #ffee58;
+    border: 1px solid #ffea00;
 }
 
 .chat-purple {
     color: black;
-    background-color: purple;
+    background-color: #9575cd;
+    border: 1px solid #311b92;
+}
+
+.chat-pink {
+    color: black;
+    background-color: #f06292;
+    border: 1px solid #f50057;
+}
+
+.chat-teal {
+    color: black;
+    background-color: #4db6ac;
+    border: 1px solid #00695c;
+}
+
+.chat-lime {
+    color: black;
+    background-color: #d4e157;
+    border: 1px solid #c6ff00;
+}
+
+.chat-rust {
+    color: black;
+    background-color: #ff8a65;
+    border: 1px solid #bf360c;
+}
+
+.chat-brown {
+    color: black;
+    background-color: #795548;
+    border: 1px solid #3e2723;
+}
+
+.chat-steel {
+    color: black;
+    background-color: #78909c;
+    border: 1px solid #263238;
+}
+
+.chat-grey {
+    color: black;
+    background-color: #bdbdbd;
+    border: 1px solid #424242;
+}
+
+span.msg-color {
+    border: none;
+}
+
+span.think {
+    background-color: inherit;
 }

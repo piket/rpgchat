@@ -9,21 +9,30 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
                 case 'teal':
                 case 'pink':
                 case 'yellow':
-                    return c+'-text';
+                case 'grey':
+                case 'steel':
+                case 'rust':
+                case 'brown':
+                case 'lime':
+                    return 'msg-color chat-'+c;
                 default:
-                    return 'black-text';
+                    return 'msg-color chat-default';
             }
         }
         var garble = function(textArr,lang) {
-            var r = 0;
             lang = lang.toLowerCase();
-            for(var i = 0; i < lang.length; i++) {
-                r += lang.charCodeAt(i);
-            }
-            var langArr = Object.keys(LangaugeService);
-            lang = langArr[r % langArr.length];
+            if(LangaugeService.defaults[lang]) {
+                var encode = LangaugeService[LangaugeService.defaults[lang]];
+            } else {
+                var langArr = Object.keys(LangaugeService);
+                var r = 0;
+                for(var i = 0; i < lang.length; i++) {
+                    r += lang.charCodeAt(i);
+                }
+                lang = langArr[r % langArr.length];
 
-            var encode = LangaugeService[lang];
+                var encode = LangaugeService[lang];
+            }
             return textArr.map(function(text) {
                 if(encode.pattern === 'word') {
                     return text.split(' ').map(encode.transform).join(' ');
@@ -59,7 +68,7 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
             flags.forEach(function(flag) {
                 switch(flag.type) {
                     case 'emote':
-                        classes[0] = 'emote';
+                        classes[1] = 'emote';
                         label = false;
                         break;
                     case 'lang':
@@ -74,11 +83,15 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
                         }
                         break;
                     case 'think':
-                        classes[0] = 'think';
-                        label = false;
+                        if(flag.inline) {
+                            output.splice(flag.value.idx,0,'<span class="think">'+flag.value.text+'</span>');
+                        } else {
+                            classes[1] = 'think';
+                            label = false;
+                        }
                         break;
                     case 'desc':
-                        classes[0] = 'desc';
+                        classes[1] = 'desc';
                         label = false;
                         break;
                     case 'color':
@@ -86,7 +99,7 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
                             text = '<span class="'+colorize(flag.value.color)+'">'+flag.value.text+'</span>';
                             output.splice(flag.value.idx,0,text);
                         } else {
-                            classes[1] = colorize(flag.value);
+                            classes[0] = colorize(flag.value);
                         }
                         break;
                     case 'roll':
@@ -112,6 +125,10 @@ console.log('chat output',output)
                 text = '<span class="as">'+item.as+':</span> '+output.join(' ');
             } else {
                 text = item.as +' '+ output.join(' ');
+            }
+
+            if(item.to > 0) {
+                classes.push('whisper');
             }
 
             console.log('parsed msg:',text)

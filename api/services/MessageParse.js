@@ -205,48 +205,80 @@ module.exports = {
             console.log(i,msg.length);
             var context = {};
             switch(msg[i]) {
+                case '(':
+                    if(msg[i+1] === '('){
+                        subMsg = msg.substr(i+2);
+                        endParam = subMsg.indexOf('))');
+                        if(endParam !== -1) {
+                            param = subMsg.substring(0,endParam);
+                            flags.push({type:'think',inline:true,value:{text:subMsg.substring(0,endParam),idx:count},priority:7});
+                            msg = msg.substring(0,i) + '|' + subMsg.substr(endParam+2);
+                            count++;
+                        }
+                    }
+                    break;
                 case '<':
                     if(msg[i+1] === '<'){
                         subMsg = msg.substr(i+2)
                         pipe = subMsg.indexOf('|');
-                        param = subMsg.substring(0,pipe);
-                        endParam = subMsg.indexOf('>>');
-                        flags.push({type:'lang',inline:true,value:{lang:param,text:subMsg.substring(pipe+1,endParam),idx:count},priority:7});
-                        msg = msg.substring(0,i) + '|' + subMsg.substr(endParam+2);
-                        count++;
+                        if(pipe !== -1) {
+                            param = subMsg.substring(0,pipe);
+                            endParam = subMsg.indexOf('>>');
+                            if(endParam !== -1) {
+                                flags.push({type:'lang',inline:true,value:{lang:param,text:subMsg.substring(pipe+1,endParam),idx:count},priority:8});
+                                msg = msg.substring(0,i) + '|' + subMsg.substr(endParam+2);
+                                count++;
+                            }
+                        }
                     }
                     break;
                 case '*':
                     if(msg[i+1] === '*') {
-                        endParam = msg.substr(i+2).indexOf('**');
-                        if(msg[endParam+2] === '*') {
-                            endParam += 1;
+                        subMsg = msg.substr(i+2);
+                        console.log(subMsg)
+                        endParam = subMsg.indexOf('**');
+                        if(endParam !== -1) {
+                            if(subMsg[endParam+2] === '*') {
+                                endParam += 1;
+                            }
+                            msg = msg.substring(0,i) + '<b>' + subMsg.substring(0,endParam) + '</b>';
+                            if(endParam < msg.length) msg += subMsg.substr(endParam+2);
+                            console.log(msg)
                         }
-                        msg = msg.substring(0,i) + '<b>' + msg.substring(i+2,endParam) + '</b>' + msg.substr(endParam+2);
                     } else {
-                        endParam = msg.substr(i+1).indexOf('*');
-                        msg = msg.substring(0,i) + '<em>' + msg.substring(i+1,endParam) + '</em>' + msg.substr(endParam+1);
+                        subMsg = msg.substr(i+1);
+                        endParam = subMsg.indexOf('*');
+                        if(endParam !== -1) {
+                            msg = msg.substring(0,i) + '<em>' + subMsg.substring(0,endParam) + '</em>';
+                            if(endParam < msg.length) msg += subMsg.substr(endParam+1);
+                        }
                     }
                     break;
                 case '{':
                     if(msg[i+1] === '{'){
                         subMsg = msg.substr(i+2);
                         pipe = subMsg.indexOf('|');
-                        param = subMsg.substring(0,pipe);
-                        endParam = subMsg.indexOf('}}');
-                        flags.push({type:'color',inline:true,value:{color:param,text:subMsg.substring(pipe+1,endParam),idx:count},priority:8});
-                        msg = msg.substring(0,i) + '|' + subMsg.substr(endParam+2);
-                        count++;
+                        if(pipe !== -1) {
+                            param = subMsg.substring(0,pipe);
+                            endParam = subMsg.indexOf('}}');
+                            if(endParam !== -1) {
+                                flags.push({type:'color',inline:true,value:{color:param,text:subMsg.substring(pipe+1,endParam),idx:count},priority:9});
+                                msg = msg.substring(0,i) + '|' + subMsg.substr(endParam+2);
+                                count++;
+                            }
+                        }
                     }
                     break;
                 case '[':
                     if(msg[i+1] === '['){
                         subMsg = msg.substr(i+2);
                         endParam = subMsg.indexOf(']]');
-                        param = subMsg.substring(0,endParam);
-                        flags.push({type:'roll',inline:true,value:{roll:this.rollDice(param),idx:count},priority:6});
-                        msg = msg.substring(0,i) + '|' + subMsg.substr(endParam+2);
-                        count++;
+                        if(endParam !== -1) {
+                            param = subMsg.substring(0,endParam);
+                            flags.push({type:'roll',inline:true,value:{roll:this.rollDice(param),idx:count},priority:6});
+                            msg = msg.substring(0,i) + '|' + subMsg.substr(endParam+2);
+                            count++;
+                        }
                     }
                     break;
                 case '|':

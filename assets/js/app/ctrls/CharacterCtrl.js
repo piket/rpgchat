@@ -1,4 +1,6 @@
 RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','UserService','AlertService','Game','Character', function($scope,$routeParams,$sce,$compile,UserService,AlertService,Game,Character){
+    $scope.colors = ['default','steel','grey','brown','rust','red','pink','purple','blue','teal','green','lime','yellow'];
+
     $scope.character = false;
     $scope.color = 'default';
     var character = null;
@@ -14,7 +16,7 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
                 $scope.name = character.name;
                 $scope.values = character.values;
                 $scope.color = character.color;
-                $scope.langauges = character.langauges;
+                $scope.langauges = character.langauges.join(', ');
                 break;
             }
         }
@@ -94,7 +96,7 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
             character.name = $scope.name;
             character.color = $scope.color;
             character.values = $scope.values;
-            character.langauges = $scope.langauges;
+            character.langauges = $scope.langauges.split(',').map(function(l) {return l.trim()});
             character.sheetTemplate = $scope.sheet.id;
             character.player = user.id;
             character.game = $scope.game.id;
@@ -106,7 +108,7 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
                 AlertService.alert('blue','Character '+$scope.name+' saved.');
             });
         } else {
-            Character.update({id:character.id},{name:$scope.name,color:$scope.color,values:JSON.stringify($scope.values),langauges:$scope.langauges}, function(data) {
+            Character.update({id:character.id},{name:$scope.name,color:$scope.color,values:JSON.stringify($scope.values),langauges:$scope.langauges.split(',').map(function(l) {return l.trim()})}, function(data) {
                 console.log('character saved',data);
                 AlertService.alert('blue','Character '+$scope.name+' saved.');
             });

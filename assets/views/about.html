@@ -1,0 +1,13 @@
+<h4 class="center">Chat commands</h4>
+<div class="row">
+    <table>
+        <thead class="purple lighten-2 table-header">
+            <td>Command</td><td>Result</td>
+        </thead>
+        <tbody>
+            <tr ng-repeat="command in commands" ng-class="{'purple lighten-4':$odd}">
+                <td><span ng-repeat="cmd in command.cmds" ng-bind-html="cmd"></span> <span ng-if="command.code" class="code">{{command.code}}</span></td><td>{{command.result}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

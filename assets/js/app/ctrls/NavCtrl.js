@@ -17,4 +17,7 @@ RPGChat.controller('NavCtrl', ['$scope','$location','UserService','AlertService'
         });
     }
 
+    $scope.openAbout = function() {
+        $('#aboutmodal').openModal();
+    }
 }]);

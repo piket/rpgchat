@@ -26,5 +26,6 @@ RPGChat.controller('GameDashboardCtrl', ['$scope','$routeParams','Game','UserSer
         Game.update({id:$scope.game.id},{description:$scope.description,public:$scope.public,active:$scope.active}, function(data) {
             $scope.game = data;
         });
+        $scope.editor();
     }
 }]);

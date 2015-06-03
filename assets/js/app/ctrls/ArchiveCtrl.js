@@ -1,4 +1,4 @@
-RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserService','AlertService','ChatService', function($scope,$routeParams,$sce,Game,UserService,AlertService,ChatService){
+RPGChat.controller('ArchiveCtrl', ['$scope','$routeParams','$sce','Game','UserService','AlertService','ChatService', function($scope,$routeParams,$sce,Game,UserService,AlertService,ChatService){
     var rolls = [];
     var msgIdx = 0;
     $scope.messages = [];
@@ -10,13 +10,10 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
 
     io.socket.post('/api/chat/join',{gameId:$routeParams.id,userId:$scope.user.id},function(data, jwRes) {
         if(data) {
-            if(data.error) {
+            if(data.error && data.error !== 'archived') {
                 if(data.error == 'no player') {
                     AlertService.add('red','You must be playing the game to join the chat.');
                     location.href='/account';
-                } else if(data.error = 'archived') {
-                    AlertService.alert('yellow black-text','This game has been archived.');
-                    location.href='/game/'+data.id+'/archive';
                 } else {
                     AlertService.alert('yellow black-text','Internal service error: '+data.error);
                 }
@@ -27,26 +24,20 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
                     $scope.users = [];
                     $scope.characters = $scope.game.characters.filter(function(character) {
                         return character.user == $scope.user.id;
-                    }).push($scope.user.username);
-                    data.messages.forEach(function(msg) {
-                        if(msg.to.length === 0 || msg.from === $scope.user.id || contains(msg.to,$scope.characters)) {
-                            console.log('message recieved',$scope.user.id == $scope.game.gm.id);
-                            $scope.messages.push(ChatService.parseChat(msg,$scope.user,$scope.user.id == $scope.game.gm.id));
+                    }).push(user.username);
+                    $scope.messages = data.messages.filter(function(msg) {
+                        if(msg.to.length === 0 || msg.from === user.id || contains(msg.to,$scope.characters)) {
+                            return true;
                         }
-                    });
-                    // $scope.messages = data.messages.filter(function(msg) {
-                    //     if(msg.to.length === 0 || msg.from === user.id || contains(msg.to,$scope.characters)) {
-                    //         return true;
-                    //     }
-                    //     return false;
-                    // }).map(function(msg) {
-                    //     // if(_.find(msg.flags, {type:'roll'})) {
-                    //     //     rolls.push('#'+msg.id);
-                    //     // }
+                        return false;
+                    }).map(function(msg) {
+                        // if(_.find(msg.flags, {type:'roll'})) {
+                        //     rolls.push('#'+msg.id);
+                        // }
 
-                    //     console.log('message recieved',$scope.user.id == $scope.game.gm.id);
-                    //     return ChatService.parseChat(msg,$scope.user,$scope.user.id == $scope.game.gm.id);
-                    // });
+                        console.log('message recieved',$scope.user.id == $scope.game.gm.id);
+                        return ChatService.parseChat(msg,$scope.user,$scope.user.id == $scope.game.gm.id);
+                    });
                     $scope.messages.push({classes:'system',message:'Welcome to '+$scope.game.name+' chat.'});
                     console.log('chat data',data);
                     $scope.loading = false;
@@ -61,25 +52,6 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
         }
     });
 
-
-    $scope.sendChat = function() {
-        var msgData = {
-            msg: $scope.body,
-            to: $scope.to,
-            as: $scope.as,
-            flags: [],
-            from: $scope.user.id,
-            gameId: $scope.game.id
-        }
-        msgIdx = $scope.previous.push($scope.body);
-        $scope.body = '';
-        console.log(msgData);
-        if(msgData.msg !== '') {
-            io.socket.post('/api/chat/message',msgData,function(data, jwRes) {
-                console.log('message data',data)
-            });
-        }
-    }
 
     io.socket.on('userleave',removeUser);
     io.socket.on('userjoin',addUser);
@@ -104,26 +76,6 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
             // }
         });
     }
-
-    $('#msg-body').on('keydown',function(e) {
-        console.log(e.which,e.shiftKey)
-        if(e.which == 13 && !e.shiftKey) {
-            console.log('sending chat')
-            $scope.sendChat();
-        } else if(e.which == 13 && e.shiftKey) {
-            $scope.body += '\n';
-        } else if(e.which == 38 && e.shiftKey && msgIdx > 0) {
-            console.log(msgIdx,'previous',$scope.previous);
-            msgIdx--;
-            $scope.body = $scope.previous[msgIdx];
-            console.log($scope.body);
-        } else if(e.which == 40 && e.shiftKey && msgIdx < $scope.previous.length - 1) {
-            console.log(msgIdx,'previous',$scope.previous);
-            msgIdx++;
-            $scope.body = $scope.previous[msgIdx];
-            console.log($scope.body);
-        }
-    });
 
     // $(document).on('keypress', function(e) {
     //     console.log(e.which);

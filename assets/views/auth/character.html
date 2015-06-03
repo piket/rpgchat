@@ -1,7 +1,7 @@
 <div class="row">
     <div class="sheet-header">
-    <div class="col s12 m4 l4">
-        <h3 class="center">{{sheet.name}}</h3>
+    <div class="col s12 m4 l4 input-field">
+        <div class="center flex-text">{{sheet.name}}</div>
     </div>
     <div class="col s8 m4 l4 input-field">
         <input type="text" id="character-name" ng-model="name">
@@ -9,17 +9,20 @@
     </div>
     <div class="col s3 m3 l3 input-field">
         <select class="browser-default" ng-model="color">
-            <option value="default"><span class="chat-default">Black</span></option>
-            <option value="blue"><span class="chat-blue">Blue</span></option>
-            <option value="red"><span class="chat-red">Red</span></option>
-            <option value="yellow"><span class="chat-yellow">Yellow</span></option>
-            <option value="purple"><span class="chat-purple">Purple</span></option>
-            <option value="green"><span class="chat-green">Green</span></option>
+            <option ng-repeat="c in colors" value="{{c}}" class="chat-{{c}}">{{c}}</option>
         </select>
     </div>
     <div class="col s1 m1 l1 input-field">
         <button ng-click="save()" class="btn waves-effect waves-light purple save-btn">Save</button>
     </div>
+    </div>
+</div>
+<div class="row">
+    <div class="sheet-header">
+        <div class="col s12 m12 l12 input-field">
+            <input type="text" ng-mode="languages">
+            <label ng-class="{active:languages}">Enter your chat languages seperated by commas</label>
+        </div>
     </div>
 </div>
 <div id="character-sheet">

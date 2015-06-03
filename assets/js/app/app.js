@@ -6,7 +6,7 @@ RPGChat.run(['$rootScope','$location','$routeParams','Game','UserService','Alert
     $rootScope.$on('$locationChangeStart', function(event,next,current) {
         // console.log('event:',event,'next:',next);
         var nextRoute = next.substr(next.indexOf(location.host) + location.host.length);
-        // console.log('route:',location.host,nextRoute);
+        console.log('route:',location.host,nextRoute);
         if(nextRoute.length > 1) {
             UserService.check(function(err,data){
                 // console.log('check',err,data);
@@ -59,6 +59,9 @@ RPGChat.config(['$routeProvider','$locationProvider',function($routeProvider,$lo
     $routeProvider.when('/', {
         templateUrl: '/views/home.html',
         controller: 'HomeCtrl'
+    }).when('/about', {
+        templateUrl: '/views/about.html',
+        controller: 'AboutCtrl'
     }).when('/login', {
         templateUrl: '/views/auth/login.html',
         controller: 'HomeCtrl'
@@ -77,6 +80,9 @@ RPGChat.config(['$routeProvider','$locationProvider',function($routeProvider,$lo
     }).when('/game/:id', {
         templateUrl: '/views/games/room.html',
         controller: 'GameCtrl'
+    }).when('/game/:id/archive', {
+        templateUrl: '/views/games/archive.html',
+        controller: 'ArchiveCtrl'
     }).when('/game/:id/dashboard', {
         templateUrl: '/views/games/dashboard.html',
         controller: 'GameDashboardCtrl'

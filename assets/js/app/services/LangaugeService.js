@@ -1,7 +1,28 @@
 RPGChat.factory('LangaugeService', function(){
     return {
+        defaults: {
+            cat: 'cat-ish',
+            mew: 'cat-ish',
+            meow: 'cat-ish',
+            catfolk: 'cat-ish',
+            neko: 'cat-ish',
+            tibbit: 'cat-ish',
+            greek: 'greek',
+            byzantian: 'greek',
+            coptic: 'greek',
+            terra: 'geo',
+            terran: 'geo',
+            earth: 'geo',
+            gnome: 'geo',
+            gnomish: 'geo',
+            ranger: 'arrow',
+            centaur: 'arrow',
+            centaurian: 'arrow',
+            chaos: 'upsidedown',
+            mirror: 'upsidedown',
+            anarchic: 'upsidedown'
+        },
         'cat-ish': {
-            defaults: ['cat','mew','meow','catfolk','neko'],
             pattern: 'word',
             transform: function(word) {
                 switch(word.length) {
@@ -97,7 +118,6 @@ RPGChat.factory('LangaugeService', function(){
 
         },
         greek: {
-            defaults: ['greek','roman','coptic'],
             pattern: 'letter',
             a: '&alpha;',
             A: '&Alpha;',
@@ -165,7 +185,6 @@ RPGChat.factory('LangaugeService', function(){
             default: '&#9647;'
         },
         geo: {
-            defaults: ['terra','terran','earth','gnome','gnomish'],
             pattern: 'letter',
             a: '&#9644;',
             A: '&#9645;',
@@ -233,7 +252,6 @@ RPGChat.factory('LangaugeService', function(){
             default: '&#9676;'
         },
         arrow: {
-            defaults: ['ranger','centaur','centaurian'],
             pattern: 'letter',
             a: '&#8636;',
             A: '&#8656;',

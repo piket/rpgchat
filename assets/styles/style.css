@@ -141,3 +141,14 @@
 .btn-floating .disabled {
     background-color: #b39ddb;
 }
+
+.code {
+    background-color: #e0e0e0;
+    padding-right: 4px;
+    padding-left: 4px;
+    font-style: italic;
+}
+
+.table-header {
+    font-size: 125%;
+}
