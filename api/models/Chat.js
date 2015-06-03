@@ -9,8 +9,7 @@ module.exports = {
 
   attributes: {
     message: {
-        type: 'text',
-        required: true
+        type: 'text'
     },
     to: {
         type: 'array'

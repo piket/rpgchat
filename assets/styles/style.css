@@ -127,7 +127,7 @@
     height: 132px;
 }
 
-.collection .collection-item .player {
+.collection-item.player {
     padding-left: 50px;
 }
 
@@ -136,4 +136,8 @@
     left: 4px;
     top: 4px;
     padding: 0 4px 4px 4px;
+}
+
+.btn-floating .disabled {
+    background-color: #b39ddb;
 }

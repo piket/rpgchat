@@ -16,7 +16,7 @@ module.exports = {
     macros: {
         type: 'json'
     },
-    form: {
+    forms: {
         type: 'array'
     },
 

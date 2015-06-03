@@ -15,3 +15,39 @@
 .chat-message.system {
     background-color: #ffe57f;
 }
+
+.roll {
+    background-color: #ffeb3b;
+    border: 1px solid #f9a825;
+    padding: 0px 3px 0px 3px;
+    color: black;
+}
+
+.chat-default {
+    color: black;
+}
+
+.chat-blue {
+    color: black;
+    background-color: blue;
+}
+
+.chat-bluered {
+    color: black;
+    background-color: red;
+}
+
+.chat-green {
+    color: black;
+    background-color: green;
+}
+
+.chat-yellow {
+    color: black;
+    background-color: yellow;
+}
+
+.chat-purple {
+    color: black;
+    background-color: purple;
+}

@@ -5,9 +5,9 @@
                 <i class="large mdi-action-settings"></i>
             </a>
             <ul>
-                <li><a href="/account" ng-class="{disabled:path == '/account'}" class="btn-floating purple accent-2 tooltipped" data-position="left" data-delay="0" data-tooltip="My Account"><i class="large mdi-action-account-circle"></i></a></li>
-                <li><a href="/create" ng-class="{disabled:path == '/create'}" class="btn-floating purple accent-2 tooltipped" data-position="left" data-delay="0" data-tooltip="Create a Game"><i class="large mdi-social-public"></i></a></li>
-                <li><a href="/search" ng-class="{disabled:path == '/search'}" class="btn-floating purple accent-2 tooltipped" data-position="left" data-delay="0" data-tooltip="Find a Game"><i class="large mdi-action-search"></i></a></li>
+                <li><a href="/account" ng-class="{'disabled':path == '/account', 'purple accent-2':path !== '/account'}" class="btn-floating tooltipped" data-position="left" data-delay="0" data-tooltip="My Account"><i class="large mdi-action-account-circle"></i></a></li>
+                <li><a href="/create" ng-class="{'disabled':path == '/create', 'purple accent-2':path !== '/create'}" class="btn-floating tooltipped" data-position="left" data-delay="0" data-tooltip="Create a Game"><i class="large mdi-social-public"></i></a></li>
+                <li><a href="/search" ng-class="{'disabled':path == '/search', 'purple accent-2':path !== '/search'}" class="btn-floating tooltipped" data-position="left" data-delay="0" data-tooltip="Find a Game"><i class="large mdi-action-search"></i></a></li>
                 <li><a ng-click="logout()" class="btn-floating red accent-1 tooltipped" data-position="left" data-delay="0" data-tooltip="Log Out"><i class="large mdi-notification-do-not-disturb"></i></a></li>
             </ul>
         </div>

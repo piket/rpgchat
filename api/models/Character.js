@@ -15,6 +15,14 @@ module.exports = {
     values: {
         type: 'json'
     },
+    color: {
+        type: 'string',
+        defaultsTo: 'default'
+    },
+    langauges: {
+        type: 'array',
+        defaultsTo: []
+    },
 
     ////// Associations //////
 

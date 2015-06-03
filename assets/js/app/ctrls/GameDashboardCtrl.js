@@ -4,6 +4,7 @@ RPGChat.controller('GameDashboardCtrl', ['$scope','$routeParams','Game','UserSer
         $scope.description = $scope.game.description;
         $scope.public = $scope.game.public;
         $scope.active = $scope.game.active;
+        $scope.gm = $scope.user.id == $scope.game.gm.id;
     });
 
     console.log('game',$scope.game);
@@ -21,4 +22,9 @@ RPGChat.controller('GameDashboardCtrl', ['$scope','$routeParams','Game','UserSer
         }
     }
 
+    $scope.submitEdit = function(field) {
+        Game.update({id:$scope.game.id},{description:$scope.description,public:$scope.public,active:$scope.active}, function(data) {
+            $scope.game = data;
+        });
+    }
 }]);

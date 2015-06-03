@@ -8,12 +8,12 @@ module.exports = {
         return rolls;
     },
     roll_xda_s: function(x,a,s,f) {
-        var rolls = new Array(x);
+        var rolls = [];
         var state;
         s = s ? s : 0;
         f = f || 0;
 
-        return rolls.map(function() {
+        for(var n = 0; n < x; n++) {
             r = parseInt((Math.random()*a)+1);
             if(r <= f) {
                 state = -1;
@@ -22,8 +22,9 @@ module.exports = {
             } else {
                 state = 0;
             }
-            return [r, state];
-        });
+            rolls.push([r, state]);
+        }
+        return rolls;
     },
     roll_xda_e: function(x,a,e) {
         var rolls = [];
@@ -50,7 +51,7 @@ module.exports = {
             var newRoll = this.roll_xda_s(times, a, s, f);
             times = newRoll.reduce(function(sum, r) {
                 return sum + (r[0] >= e ? 1 : 0);
-            });
+            },0);
             rolls = rolls.concat(newRoll);
         }
         return rolls;
@@ -62,8 +63,8 @@ module.exports = {
         var eChar = str.indexOf('e');
         var pChar = str.search(/[+-]/);
 
-        var dNum = parseInt(str.substring(0,dChar));
-        var aNum = str.substring(dChar+1, (sChar === -1 ? (eChar === -1 ? (pChar === -1 ? str.length : pChar) : eChar) : sChar));
+        var xNum = parseInt(str.substring(0,dChar));
+        var aNum = parseInt(str.substring(dChar+1, (sChar === -1 ? (eChar === -1 ? (pChar === -1 ? str.length : pChar) : eChar) : sChar)));
 
         var endIdx = str.length;
 
@@ -90,7 +91,7 @@ module.exports = {
             if(pNum.indexOf('d') !== -1) {
                 pNum = this.roll(pNum).reduce(function(sum,p) {
                     return sum + p;
-                });
+                },0);
             } else {
                 pNum = parseInt(pNum);
             }
@@ -99,29 +100,29 @@ module.exports = {
                 pNum *= -1;
             }
         }
-        return {d:dNum,a:aNum,s:sNum,f:fNum,e:eNum,p:pNum,str:str.substr(endIdx)};
+        return {x:xNum,a:aNum,s:sNum,f:fNum,e:eNum,p:pNum,str:str.substr(endIdx)};
     },
     roll: function(string) {
-        var roll = this.parseCmd(string);
+        var roll = this.parseRoll(string);
         var rollArr = [];
         var result = 0;
-
+        console.log('roll string',roll)
         if(roll.s === null && roll.f === null && roll.e === null) {
             rollArr = this.roll_xda(roll.x,roll.a);
-            result = rollArr.reduce(function(sum, r) {return sum + r});
+            result = rollArr.reduce(function(sum, r) {return sum + r},0);
         } else if(roll.s === null && roll.f === null) {
             rollArr = this.roll_xda_e(roll.x,roll.a,roll.e);
-            result = rollArr.reduce(function(sum,r) {return sum + r});
+            result = rollArr.reduce(function(sum,r) {return sum + r},0);
         } else if(roll.e === null) {
-            rollArr = roll_xda_s(roll.x,roll.a,roll.s,roll.f);
+            rollArr = this.roll_xda_s(roll.x,roll.a,roll.s,roll.f);
             result = rollArr.reduce(function(sum,r) {return sum + r[1]}, 0);
             rollArr = rollArr.map(function(r) {return r[0]});
         } else {
-            rollArr = roll_xda_s_e(roll.x,roll.a,roll.s,roll.f,roll.e);
+            rollArr = this.roll_xda_s_e(roll.x,roll.a,roll.s,roll.f,roll.e);
             result = rollArr.reduce(function(sum,r) {return sum + r[1]}, 0);
             rollArr = rollArr.map(function(r) {return r[0]});
         }
-
+        console.log('result',{rolls:rollArr, result:result})
         return {rolls:rollArr, result:result};
     }
 };

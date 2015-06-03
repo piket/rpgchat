@@ -1,4 +1,4 @@
-var RPGChat = angular.module('RPGChat', ['draggable','ngRoute','ngResource','ngSanitize']);
+var RPGChat = angular.module('RPGChat', ['draggable','sheetItem','ngRoute','ngResource','ngSanitize']);
 
 RPGChat.run(['$rootScope','$location','$routeParams','Game','UserService','AlertService', function($rootScope,$location,$routeParams,Game,UserService,AlertService){
     console.log('RPGChat app is loaded.');
@@ -80,7 +80,11 @@ RPGChat.config(['$routeProvider','$locationProvider',function($routeProvider,$lo
     }).when('/game/:id/dashboard', {
         templateUrl: '/views/games/dashboard.html',
         controller: 'GameDashboardCtrl'
-    }).when('/game/:id/join', {}).when('/game/:id/join/:join', {}).otherwise({
+    }).when('/game/:id/join', {}).when('/game/:id/join/:join', {
+    }).when('/character/:id', {
+        templateUrl: '/views/auth/character.html',
+        controller: 'CharacterCtrl'
+    }).otherwise({
         templateUrl: '/views/404.html'
     });
 }]);

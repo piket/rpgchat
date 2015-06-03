@@ -2,13 +2,13 @@
 <h5 class="center">Dashboard</h5>
 <div class="row">
     <div class="col s12 m12 l12 center">
-        <a href="/game/{{game.id}}" class="waves-effect waves-purple btn-flat"><h5>Enter game room</h5></a>
+        <a href="/game/{{game.id}}" class="waves-effect waves-light btn-large purple"><h5>Enter game room</h5></a>
     </div>
 </div>
 <div class="row">
     <div class="col s12 m12 l12" ng-hide="edit.description">
         <div class="flow-text">{{game.description || 'No description'}}</div>
-        <button ng-click="editor('description')" class="btn-floating waves-effect waves-light purple edit-btn"><i class="mdi-editor-mode-edit"></i></button>
+        <button ng-show="gm" ng-click="editor('description')" class="btn-floating waves-effect waves-light purple edit-btn"><i class="mdi-editor-mode-edit"></i></button>
     </div>
     <div class="col s12 m12 l12" ng-show="edit.description">
         <form ng-submit="submitEdit('description')">
@@ -24,7 +24,7 @@
 </div>
 <div class="row center">
     <div class="col s12 m6 l6">
-        <div ng-hide="edit.public">{{game.public ? 'This is a public game' : 'This is a private game'}} <button ng-click="editor('public')" class="btn-floating waves-effect waves-light purple"><i class="mdi-editor-mode-edit"></i></button></div>
+        <div ng-hide="edit.public">{{game.public ? 'This is a public game' : 'This is a private game'}} <button ng-show="gm" ng-click="editor('public')" class="btn-floating waves-effect waves-light purple"><i class="mdi-editor-mode-edit"></i></button></div>
         <div ng-show="edit.public">
             <form ng-submit="submitEdit('public')">
                 <div class="row">
@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="col s12 m6 l6">
-        <div ng-hide="edit.active">{{game.active ? 'This game is currently running' : 'This game is archived'}} <button ng-click="editor('active')" class="btn-floating waves-effect waves-light purple"><i class="mdi-editor-mode-edit"></i></button></div>
+        <div ng-hide="edit.active">{{game.active ? 'This game is currently running' : 'This game is archived'}} <button ng-show="gm" ng-click="editor('active')" class="btn-floating waves-effect waves-light purple"><i class="mdi-editor-mode-edit"></i></button></div>
         <div ng-show="edit.active">
             <form ng-submit="submitEdit('active')">
                 <div class="row input-field">

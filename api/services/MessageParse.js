@@ -11,6 +11,7 @@ module.exports = {
             var endCmd = msg.indexOf(' ');
             var cmd = msg.substring(1,endCmd);
             var remaining = msg.substr(endCmd).trim()
+            console.log('remaining:'+remaining)
 
             switch(cmd) {
                 // whipser to a player
@@ -55,6 +56,7 @@ module.exports = {
                 case 'r':
                 case 'roll':
                     var context = this.getCmdParams(remaining);
+                    console.log('roll context',context)
                     remaining = context.remaining;
                     param = context.param;
                     flags.push({type:'roll',value:this.rollDice(param),priority:0});
@@ -139,10 +141,11 @@ module.exports = {
             if(endParam === -1) {
                 endParam = remaining.substr(1).indexOf(' ');
             }
-            endParam++;
+            endParam = endParam === -1 ? remaing.length : endParam + 1;
             param = remaining.substring(1,endParam);
         } else {
             endParam = remaining.indexOf(' ');
+            if(endParam === -1) endParam = remaining.length;
             param = remaining.substring(0,endParam);
         }
         return {remaining:remaining.substr(endParam+1).trim(), param:param};
@@ -196,7 +199,7 @@ module.exports = {
         var param = '', subMsg = '';
         var pipe;
         var endParam;
-        var count = 0;
+        var count = 1;
 
         for(var i = 0; i < msg.length; i++) {
             console.log(i,msg.length);
@@ -237,11 +240,12 @@ module.exports = {
                     }
                     break;
                 case '[':
-                    if(msg[i+1] === '[['){
-                        endParam = msg.substr(i+2).indexOf(']]');
-                        param = msg.substring(i+2,endParam);
+                    if(msg[i+1] === '['){
+                        subMsg = msg.substr(i+2);
+                        endParam = subMsg.indexOf(']]');
+                        param = subMsg.substring(0,endParam);
                         flags.push({type:'roll',inline:true,value:{roll:this.rollDice(param),idx:count},priority:6});
-                        msg = msg.substring(0,i) + '|' + msg.substr(endParam+2);
+                        msg = msg.substring(0,i) + '|' + subMsg.substr(endParam+2);
                         count++;
                     }
                     break;

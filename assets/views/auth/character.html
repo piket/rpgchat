@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="sheet-header">
+    <div class="col s12 m4 l4">
+        <h3 class="center">{{sheet.name}}</h3>
+    </div>
+    <div class="col s8 m4 l4 input-field">
+        <input type="text" id="character-name" ng-model="name">
+        <label for="character-name" ng-class="{active:name}">Character Sheet Name</label>
+    </div>
+    <div class="col s3 m3 l3 input-field">
+        <select class="browser-default" ng-model="color">
+            <option value="default"><span class="chat-default">Black</span></option>
+            <option value="blue"><span class="chat-blue">Blue</span></option>
+            <option value="red"><span class="chat-red">Red</span></option>
+            <option value="yellow"><span class="chat-yellow">Yellow</span></option>
+            <option value="purple"><span class="chat-purple">Purple</span></option>
+            <option value="green"><span class="chat-green">Green</span></option>
+        </select>
+    </div>
+    <div class="col s1 m1 l1 input-field">
+        <button ng-click="save()" class="btn waves-effect waves-light purple save-btn">Save</button>
+    </div>
+    </div>
+</div>
+<div id="character-sheet">
+    <form id="sheet-form" ng-submit="save()">
+    <div ng-repeat="elm in sheet.forms track by $index" style="left:{{elm[0]}};top:{{elm[1]}}">
+        <sheet-item edit="elm[2].form" display="elm[2].display" name="elm[2].name" toggle="edit[elm[2].name]"></sheet-item>
+        <div ng-hide="edit[elm[2].name]">
+            <a ng-click="toggleEdit(elm[2].name)" class="btn-floating waves-effect waves-light purple sheet-edit-btn"><i class="mdi-editor-mode-edit"></i></a>
+        </div>
+        <div ng-show="edit[elm[2].name]">
+            <a ng-click="submitEdit(elm[2].name)" class="btn-floating waves-effect waves-light purple sheet-edit-btn"><i class="mdi-action-done"></i></a>
+            <a ng-click="clear(elm[2].name)" class="btn-floating waves-effect waves-light purple sheet-edit-btn"><i class="mdi-content-clear"></i></a>
+        </div>
+    </div>
+    </form>
+</div>
