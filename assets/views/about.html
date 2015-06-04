@@ -11,3 +11,46 @@
         </tbody>
     </table>
 </div>
+<div class="row">
+    <h4 class="Center">Row Strings</h4>
+    <p>Roll strings are the language of the RPGChat dice roller. This is a simple notation that can be used for almost any type of roll.</p>
+    <p>Roll strings use common XdA notation, with the full notation being XdAsNfNeN+C</p>
+    <ul>
+        <li>X refers to the number of dice to roll.</li>
+        <li>A refers to the number of sides on the die.</li>
+        <li>N refers to the generated result which is used as a parameter for the given commands.</li>
+        <li>C refers to a constant or additional roll string to be added to the first.</li>
+    </ul>
+    <p>Roll string commands allow for the most common uses of RPG dice rolling.</p>
+    <ul>
+        <li><span class="code">s</span> tells the roller you want to count successes, not the number of the result. The roller with count each result of N or greater as 1 and all lower results as 0. If no N is given, then the roller sets N to the maximum possible result.</li>
+        <li><span class="code">f</span> must be used with success rolling. This tells the roller to count results of N or lower as failures, subtracting 1 from the count. If no N is given, the roller assumes N is 1.</li>
+        <li><span class="code">e</span> tells the roller you want exploding dice, meaning each result of N or greater generates an additional roll. If no N is given, the roller assumes N is the maximum possible value.</li>
+    </ul>
+    <table>
+        <thead>
+            <td colspan="2">Sample Roll Strings</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>4d6+2</td><td>Will roll four 6-sided dice, add the results and then add 4.</td>
+            </tr>
+            <tr>
+                <td>5d10s8</td><td>Will roll five 10-sided dice and count each result greater than or equal to 8.</td>
+            </tr>
+            <tr>
+                <td>6d8e9</td><td>Will roll six 8-sided dice and then roll additional dice for each result greater than or equal to 9. After all additional dice are rolled, the results are added together.</td>
+            </tr>
+            <tr>
+                <td>3d6s6f1</td><td>Will roll three 6-sided  dice, counting each result of 6 and subtracting each result of 1.</td>
+            </tr>
+            <tr>
+                <td>3d10s8e9</td><td>Will roll three 10-sided dice, rolling additional dice for each result of 9 or 10, and then count each result greater than or equal to 8.</td>
+            </tr>
+            <tr>
+                <td>5d6s4e</td><td>Will roll five 6-sided dice, rolling additional dice for each result of 6, and then counting each result of 4 or greater.</td>
+            </tr>
+        </tbody>
+    </table>
+    <p></p>
+</div>

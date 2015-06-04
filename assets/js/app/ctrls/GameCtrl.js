@@ -1,7 +1,7 @@
 RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserService','AlertService','ChatService', function($scope,$routeParams,$sce,Game,UserService,AlertService,ChatService){
     var rolls = [];
     var msgIdx = 0;
-    var chatWindow = $('#chatWindow');
+    var chatWindow = $('.chat-view');
     console.log('window',chatWindow)
     $scope.messages = [];
     $scope.previous = [];
@@ -62,7 +62,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
                     // });
                     $scope.messages.push({classes:'system',message:'Welcome to '+$scope.game.name+' chat.'});
                     console.log('chat data',data);
-                    chatWindow.scrollTop = chatWindow.scrollHeight;
+                    chatWindow.scrollTop(chatWindow.height());
                     $scope.loading = false;
 
                     console.log('room user',$scope.user);
@@ -88,7 +88,9 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
             msgData.flags.push({type:'color',value:$scope.characters[$scope.as].color,priority:5});
         }
         msgIdx = $scope.previous.push($scope.body);
-        $scope.body = '';
+        $scope.$evalAsync(function() {
+            $scope.body = '';
+        });
         console.log(msgData);
         if(msgData.msg !== '') {
             io.socket.post('/api/chat/message',msgData,function(data, jwRes) {
@@ -116,7 +118,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
             $scope.messages.push(msg);
             console.log('new msg',msg);
             console.log('scroll:',chatWindow.scrollTop,chatWindow.scrollHeight);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            chatWindow.scrollTop(chatWindow.height());
             // if(_.find(item.flags, {type:'roll'})) {
             //     $('#'+item.id).tooltip({delay:50});
             // }

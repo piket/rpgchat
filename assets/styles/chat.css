@@ -25,8 +25,8 @@
 }
 
 .chat-view {
-    overflow: auto;
-    max-height: 600px;
+    overflow-y: scroll;
+    max-height: 400px;
 }
 
 .chat-message {

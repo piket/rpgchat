@@ -161,3 +161,11 @@ a {
     color: #9c27b0;
     font-style: italic;
 }
+
+#aboutmodal {
+    width: 80%;
+}
+
+.command-table tr td:first-child {
+    min-width: 415px;
+}

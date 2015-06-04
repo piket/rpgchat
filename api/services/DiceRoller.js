@@ -122,6 +122,7 @@ module.exports = {
             result = rollArr.reduce(function(sum,r) {return sum + r[1]}, 0);
             rollArr = rollArr.map(function(r) {return r[0]});
         }
+        result += roll.p || 0;
         console.log('result',{rolls:rollArr, result:result})
         return {rolls:rollArr, result:result};
     }
