@@ -68,7 +68,7 @@ module.exports = {
 
         var endIdx = str.length;
 
-        var sNum = null, fNum = null, eNum = null, pNum = 0;
+        var sNum = null, fNum = null, eNum = null, pNum = 0, pRoll = null, pStr = '';
 
         if(sChar !== -1) {
             sNum = str.substring(sChar+1, (fChar === -1 ? (eChar === -1 ? (pChar === -1 ? str.length : pChar) : eChar) : fChar));
@@ -87,11 +87,12 @@ module.exports = {
         }
         if(pChar !== -1) {
             pNum = str.substring(pChar+1);
+            console.log('pNum str:',pNum);
             endIdx = pChar;
             if(pNum.indexOf('d') !== -1) {
-                pNum = this.roll(pNum).reduce(function(sum,p) {
-                    return sum + p;
-                },0);
+                pRoll = this.roll(pNum);
+                pStr = ' + '+pRoll.rolls;
+                pNum = pRoll.result;
             } else {
                 pNum = parseInt(pNum);
             }
@@ -100,9 +101,11 @@ module.exports = {
                 pNum *= -1;
             }
         }
-        return {x:xNum,a:aNum,s:sNum,f:fNum,e:eNum,p:pNum,str:str.substr(endIdx)};
+        console.log('pRoll:',pRoll);
+        return {x:xNum,a:aNum,s:sNum,f:fNum,e:eNum,p:pNum,str:str.substr(endIdx),pRoll:pStr};
     },
     roll: function(string) {
+        console.log('roll string:',string)
         var roll = this.parseRoll(string);
         var rollArr = [];
         var result = 0;
@@ -124,6 +127,6 @@ module.exports = {
         }
         result += roll.p || 0;
         console.log('result',{rolls:rollArr, result:result})
-        return {rolls:rollArr, result:result};
+        return {rolls:'['+rollArr+']'+roll.pRoll, result:result};
     }
 };
