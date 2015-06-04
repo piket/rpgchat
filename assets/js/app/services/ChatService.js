@@ -14,9 +14,10 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
                 case 'rust':
                 case 'brown':
                 case 'lime':
-                    return 'msg-color chat-'+c;
+                case 'white':
+                    return 'chat-'+c+' msg-color';
                 default:
-                    return 'msg-color chat-default';
+                    return 'chat-default msg-color';
             }
         }
         var garble = function(textArr,lang) {
@@ -35,7 +36,9 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
             }
             return textArr.map(function(text) {
                 if(encode.pattern === 'word') {
-                    return text.split(' ').map(encode.transform).join(' ');
+                    return text.split(' ').map(function(word) {
+                        return encode.transform(word);
+                    }).join(' ');
                 } else {
                     var newText = "";
                     for(i = 0; i < text.length; i++) {
@@ -67,19 +70,25 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
 
             flags.forEach(function(flag) {
                 switch(flag.type) {
+                    case 'whisper':
+                        classes.push('whisper');
+                        break;
                     case 'emote':
                         classes[1] = 'emote';
                         label = false;
                         break;
                     case 'lang':
                         if(flag.inline) {
-                            if(!gm || ((user.character && user.character.langauges && user.character.langauges.indexOf(flag.value.lang) === -1) && user.id !== item.from)) {
-                                output.splice(flag.value.idx,0,'<em>(in '+flag.value.lang+'):</em> ',garble(flag.value.text,flag.value.lang));
+                            // console.log('checking lang:',!gm,user.langauges.indexOf(flag.value.lang) === -1,user.id !== item.from);
+                            if(!gm && ((user.langauges && user.langauges.indexOf(flag.value.lang) === -1) && user.id !== item.from)) {
+                                output.splice(flag.value.idx,0,'<em>(in '+flag.value.lang+')</em> ',garble([flag.value.text],flag.value.lang));
                             } else {
-                                output.splice(flag.value.idx,0,'<em>(in '+flag.value.lang+'):</em> ',flag.value.text);
+                                output.splice(flag.value.idx,0,'<em>(in '+flag.value.lang+')</em> ',flag.value.text);
                             }
-                        } else if(!gm || ((user.character && user.character.langauges && user.character.langauges.indexOf(flag.value) === -1) && user.id !== item.from)) {
-                            output = ['<em>(in '+flag.value+'):</em> '].concat(garble(output,flag.value));
+                        } else if(!gm && ((user.langauges && user.langauges.indexOf(flag.value) === -1) && user.id !== item.from)) {
+                            output = ['<em>(in '+flag.value+')</em> '].concat(garble(output,flag.value));
+                        } else {
+                            output = ['<em>(in '+flag.value+')</em> '].concat(output);
                         }
                         break;
                     case 'think':
@@ -125,10 +134,6 @@ console.log('chat output',output)
                 text = '<span class="as">'+item.as+':</span> '+output.join(' ');
             } else {
                 text = item.as +' '+ output.join(' ');
-            }
-
-            if(item.to > 0) {
-                classes.push('whisper');
             }
 
             console.log('parsed msg:',text)

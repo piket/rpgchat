@@ -26,6 +26,7 @@
 
 .chat-view {
     overflow: auto;
+    max-height: 600px;
 }
 
 .chat-message {
@@ -51,81 +52,104 @@
 }
 
 .chat-blue {
-    color: black;
+    color: #03a9f4;
     background-color: #03a9f4;
     border: 1px solid #01579b;
 }
 
 .chat-red {
-    color: black;
+    color: #ef5350;
     background-color: #ef5350;
     border: 1px solid #b71c1c;
 }
 
 .chat-green {
-    color: black;
+    color: #66bb6a;
     background-color: #66bb6a;
     border: 1px solid #1b5e20;
 }
 
 .chat-yellow {
-    color: black;
+    color: #ffee58;
     background-color: #ffee58;
     border: 1px solid #ffea00;
 }
 
 .chat-purple {
-    color: black;
+    color: #9575cd;
     background-color: #9575cd;
     border: 1px solid #311b92;
 }
 
 .chat-pink {
-    color: black;
+    color: #f06292;
     background-color: #f06292;
     border: 1px solid #f50057;
 }
 
 .chat-teal {
-    color: black;
+    color: #4db6ac;
     background-color: #4db6ac;
     border: 1px solid #00695c;
 }
 
 .chat-lime {
-    color: black;
+    color: #d4e157;
     background-color: #d4e157;
     border: 1px solid #c6ff00;
 }
 
 .chat-rust {
-    color: black;
+    color: #ff8a65;
     background-color: #ff8a65;
     border: 1px solid #bf360c;
 }
 
 .chat-brown {
-    color: black;
+    color: #795548;
     background-color: #795548;
     border: 1px solid #3e2723;
 }
 
 .chat-steel {
-    color: black;
+    color: #78909c;
     background-color: #78909c;
     border: 1px solid #263238;
 }
 
 .chat-grey {
-    color: black;
+    color: #bdbdbd;
     background-color: #bdbdbd;
     border: 1px solid #424242;
 }
 
+.chat-white {
+    color: white;
+    background-color: white;
+    border: 1px solid black;
+}
+
+li.msg-color {
+    color: black;
+}
+
 span.msg-color {
     border: none;
+    background-color: inherit;
 }
 
 span.think {
     background-color: inherit;
+}
+
+.whisper {
+    border: 2px solid #ff8f00;
+}
+
+.sheet-btn {
+    min-height: 36px;
+    width: 100%;
+    text-decoration: none;
+    color: black;
+    border: 1px solid #9c27b0;
 }

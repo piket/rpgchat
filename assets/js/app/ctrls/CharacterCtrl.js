@@ -24,7 +24,7 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
             $scope.values = {};
             $scope.name = '';
             $scope.color = $scope.color;
-            $scope.langauges = [];
+            $scope.langauges = '';
         }
         console.log($scope.sheet)
         $scope.edit = {};
@@ -89,6 +89,10 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
         console.log('saving...',character);
         // formObj = objectify($('#sheet-form').serializeArray());
         // console.log('form',formObj);
+        var lang = $scope.langauges.split(',').map(function(l) {
+            return l.trim().toLowerCase()
+        });
+        console.log('langs:',lang,$scope.langauges)
 
         if(!character) {
             character = new Character();
@@ -96,7 +100,7 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
             character.name = $scope.name;
             character.color = $scope.color;
             character.values = $scope.values;
-            character.langauges = $scope.langauges.split(',').map(function(l) {return l.trim()});
+            character.langauges = lang;
             character.sheetTemplate = $scope.sheet.id;
             character.player = user.id;
             character.game = $scope.game.id;
@@ -108,7 +112,7 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
                 AlertService.alert('blue','Character '+$scope.name+' saved.');
             });
         } else {
-            Character.update({id:character.id},{name:$scope.name,color:$scope.color,values:JSON.stringify($scope.values),langauges:$scope.langauges.split(',').map(function(l) {return l.trim()})}, function(data) {
+            Character.update({id:character.id},{name:$scope.name,color:$scope.color,values:JSON.stringify($scope.values),langauges:lang}, function(data) {
                 console.log('character saved',data);
                 AlertService.alert('blue','Character '+$scope.name+' saved.');
             });

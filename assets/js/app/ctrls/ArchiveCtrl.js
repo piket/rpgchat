@@ -22,21 +22,11 @@ RPGChat.controller('ArchiveCtrl', ['$scope','$routeParams','$sce','Game','UserSe
                     $scope.as = $scope.user.username;
                     $scope.game = data;
                     $scope.users = [];
-                    $scope.characters = $scope.game.characters.filter(function(character) {
-                        return character.user == $scope.user.id;
-                    }).push(user.username);
-                    $scope.messages = data.messages.filter(function(msg) {
-                        if(msg.to.length === 0 || msg.from === user.id || contains(msg.to,$scope.characters)) {
-                            return true;
+                    data.messages.forEach(function(msg) {
+                        if(msg.to.length === 0 || msg.from === $scope.user.id || contains(msg.to,$scope.characters)) {
+                            // console.log('message recieved',$scope.user.id == $scope.game.gm.id);
+                            $scope.messages.push(ChatService.parseChat(msg,$scope.user,$scope.user.id == $scope.game.gm.id));
                         }
-                        return false;
-                    }).map(function(msg) {
-                        // if(_.find(msg.flags, {type:'roll'})) {
-                        //     rolls.push('#'+msg.id);
-                        // }
-
-                        console.log('message recieved',$scope.user.id == $scope.game.gm.id);
-                        return ChatService.parseChat(msg,$scope.user,$scope.user.id == $scope.game.gm.id);
                     });
                     $scope.messages.push({classes:'system',message:'Welcome to '+$scope.game.name+' chat.'});
                     console.log('chat data',data);

@@ -21,11 +21,13 @@ module.exports = {
                     remaining = context.remaining;
                     param = context.param;
                     to.push(param);
+                    flags.push({type:'whisper',priority:1});
                     break;
                 // whisper to the gm
                 case 'gm':
                 case 'wg':
                     to = ['gm'];
+                    flags.push({type:'whisper',priority:1});
                     break;
                 // speak as a character
                 case 'as':
@@ -71,6 +73,7 @@ module.exports = {
                     param = context.param;
                     to = ['gm'];
                     flags.push({type:'roll',value:this.rollDice(param),priority:0});
+                    flags.push({type:'whisper',priority:1});
                     break;
                 // chat a description
                 case 'desc':

@@ -5,8 +5,12 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
     $scope.previous = [];
     $scope.users = [];
     $scope.user = UserService.currentUser;
+    $scope.user.langauges = [];
     $scope.to = [];
     $scope.loading = true;
+    $scope.characters = {};
+    $scope.characters[$scope.user.username] = {color:'default',player:true};
+    $scope.view = {};
 
     io.socket.post('/api/chat/join',{gameId:$routeParams.id,userId:$scope.user.id},function(data, jwRes) {
         if(data) {
@@ -25,12 +29,17 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
                     $scope.as = $scope.user.username;
                     $scope.game = data;
                     $scope.users = [];
-                    $scope.characters = $scope.game.characters.filter(function(character) {
-                        return character.user == $scope.user.id;
-                    }).push($scope.user.username);
+                    $scope.sheet = data.sheetTemplate;
+                    $scope.game.characters.forEach(function(character) {
+                        $scope.view[character.id] = false;
+                        $scope.characters[character.name] = {color:character.color, player:(character.player == $scope.user.id)};
+                        if(character.player == $scope.user.id) {
+                            $scope.user.langauges = $scope.user.langauges.concat(character.langauges);
+                        }
+                    });
                     data.messages.forEach(function(msg) {
                         if(msg.to.length === 0 || msg.from === $scope.user.id || contains(msg.to,$scope.characters)) {
-                            console.log('message recieved',$scope.user.id == $scope.game.gm.id);
+                            // console.log('message recieved',$scope.user.id == $scope.game.gm.id);
                             $scope.messages.push(ChatService.parseChat(msg,$scope.user,$scope.user.id == $scope.game.gm.id));
                         }
                     });
@@ -61,7 +70,6 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
         }
     });
 
-
     $scope.sendChat = function() {
         var msgData = {
             msg: $scope.body,
@@ -70,6 +78,9 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
             flags: [],
             from: $scope.user.id,
             gameId: $scope.game.id
+        }
+        if($scope.characters[$scope.as] && $scope.characters[$scope.as].player && $scope.characters[$scope.as] !== 'default') {
+            msgData.flags.push({type:'color',value:$scope.characters[$scope.as].color,priority:5});
         }
         msgIdx = $scope.previous.push($scope.body);
         $scope.body = '';
@@ -106,7 +117,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
     }
 
     $('#msg-body').on('keydown',function(e) {
-        console.log(e.which,e.shiftKey)
+        // console.log(e.which,e.shiftKey)
         if(e.which == 13 && !e.shiftKey) {
             console.log('sending chat')
             $scope.sendChat();
@@ -139,7 +150,15 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
     //         }
     //     })
     // });
-    function contains(arr,compare) {
-        return _.intersection(arr,compare).length > 0;
+    $scope.validSheets = function() {
+        return $scope.game.characters.filter(function(c) {
+            if($scope.user.id == $scope.game.gm.id) return true;
+            return c.player == $scope.user.id;
+        });
+    }
+
+    function contains(to,compare) {
+        if(msg.to.indexOf('gm') !== -1) return true;
+        return _.intersection(to,compare).length > 0;
     }
 }]);

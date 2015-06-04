@@ -5,7 +5,7 @@ angular.module('sheetItem', []).directive('sheetItem', ['$compile','$sce', funct
         // priority: 1,
         // terminal: true,
         scope: {
-            edit: '=',
+            edit: '=?',
             display: '=',
             name: '=',
             toggle: '='
