@@ -13,6 +13,8 @@ RPGChat.factory('LangaugeService', function(){
             terra: 'geo',
             terran: 'geo',
             earth: 'geo',
+            dwarf: 'geo',
+            dwarven: 'geo',
             gnome: 'geo',
             gnomish: 'geo',
             ranger: 'arrow',
@@ -20,14 +22,19 @@ RPGChat.factory('LangaugeService', function(){
             centaurian: 'arrow',
             chaos: 'upsidedown',
             mirror: 'upsidedown',
-            anarchic: 'upsidedown'
+            anarchic: 'upsidedown',
+            axiomatic: 'player',
+            law: 'player',
+            lawful: 'player',
+            axiom: 'player',
+            order: 'player'
         },
         'cat-ish': {
             pattern: 'word',
             transform: function(word) {
                 switch(word.length) {
                     case 1:
-                        return 'mr';
+                        return 'purr';
                     case 2:
                         return 'mer';
                     case 3:

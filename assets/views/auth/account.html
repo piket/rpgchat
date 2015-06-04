@@ -9,8 +9,8 @@
                 <h6>
                     {{game.name}}
                 </h6>
-                <a href="/game/{{game.id}}/dashboard" class="btn waves-effect waves-light purple dash-btn"><i class="mdi-action-info"></i></a>
-                <a href="/game/{{game.id}}" class="btn waves-effect waves-light purple chat-btn"><i class="mdi-communication-chat"></i></a>
+                <a href="/game/{{game.id}}/dashboard" class="btn waves-effect waves-light purple dash-btn" title="Game Info"><i class="mdi-action-info"></i></a>
+                <a href="/game/{{game.id}}" class="btn waves-effect waves-light purple chat-btn" title="Game Chat"><i class="mdi-communication-chat"></i></a>
             </li>
         </ul>
     </div>
@@ -23,8 +23,8 @@
                 <h6>
                     {{game.name}}
                 </h6>
-                <a href="/game/{{game.id}}/dashboard" class="btn waves-effect waves-light purple dash-btn"><i class="mdi-action-dashboard"></i></a>
-                <a href="/game/{{game.id}}" class="btn waves-effect waves-light purple chat-btn"><i class="mdi-communication-chat"></i></a>
+                <a href="/game/{{game.id}}/dashboard" class="btn waves-effect waves-light purple dash-btn" title="Game Dashboard"><i class="mdi-action-dashboard"></i></a>
+                <a href="/game/{{game.id}}" class="btn waves-effect waves-light purple chat-btn" title="Game Chat"><i class="mdi-communication-chat"></i></a>
             </li>
         </ul>
     </div>
@@ -34,7 +34,7 @@
         </h5>
         <div class="collection account-pane">
             <a ng-repeat="character in user.characters" class="collection-item" href="/character/{{character.game}}">
-                {{character.name}}
+                {{character.name}}<span class="right playing-in">Playing in: {{characterGame(character.game)}}</span>
             </a>
         </div>
     </div>

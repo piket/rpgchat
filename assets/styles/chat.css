@@ -138,6 +138,10 @@ span.msg-color {
     background-color: inherit;
 }
 
+option.msg-color {
+    color: black;
+}
+
 span.think {
     background-color: inherit;
 }

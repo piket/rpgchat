@@ -25,7 +25,7 @@
         </div>
     </div>
 </div>
-<div id="character-sheet">
+<div class="character-sheet">
     <form id="sheet-form" ng-submit="save()">
     <div ng-repeat="elm in sheet.forms track by $index" style="left:{{elm[0]}};top:{{elm[1]}}">
         <sheet-item edit="elm[2].form" display="elm[2].display" name="elm[2].name" toggle="edit[elm[2].name]"></sheet-item>

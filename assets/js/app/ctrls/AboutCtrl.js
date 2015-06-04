@@ -68,11 +68,11 @@ RPGChat.controller('AboutCtrl', ['$scope','$sce', function($scope,$sce){
         },
         {
             cmds: [$sce.trustAsHtml('[[<span class="code">roll string</span> ? <span class="code">(threshold) success string</span> | <span class="code">failure string</span>]]')],
-            result: 'Inline command: inserts a roll into the text of your message and allows you to set conditional text to follow the roll if the roll meets the given threshold.'
+            result: 'Inline command: inserts a roll into the text of your message and allows you to set conditional text to follow the roll if the roll meets the given threshold. This command cannot contain any other inline commands within the success or failure text.'
         },
         {
             cmds: [$sce.trustAsHtml('<<<span class="code">language</span> | <span class="code">text</span>>>')],
-            result: 'Inline command: flags the wrapped text as spoken in the specified language.'
+            result: 'Inline command: flags the wrapped text as spoken in the specified language. This command cannot contain any other inline commands within the wrapped text.'
         },
         {
             cmds: [$sce.trustAsHtml('{{<span class="code">color</span> | <span class="code">text</span>}}')],

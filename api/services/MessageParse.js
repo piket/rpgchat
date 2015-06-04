@@ -1,5 +1,27 @@
 var Roll = require('./DiceRoller.js');
 
+var colorize = function(c) {
+    c = c.toLowerCase();
+    switch(c) {
+        case 'red':
+        case 'blue':
+        case 'green':
+        case 'purple':
+        case 'teal':
+        case 'pink':
+        case 'yellow':
+        case 'grey':
+        case 'steel':
+        case 'rust':
+        case 'brown':
+        case 'lime':
+        case 'white':
+            return 'chat-'+c+' msg-color';
+        default:
+            return 'chat-default msg-color';
+    }
+}
+
 module.exports = {
     parseMsgCmd: function(msgData) {
         console.log('starting msg parse')
@@ -213,9 +235,8 @@ module.exports = {
                         subMsg = msg.substr(i+2);
                         endParam = subMsg.indexOf('))');
                         if(endParam !== -1) {
-                            param = subMsg.substring(0,endParam);
-                            flags.push({type:'think',inline:true,value:{text:subMsg.substring(0,endParam),idx:count},priority:7});
-                            msg = msg.substring(0,i) + '|' + subMsg.substr(endParam+2);
+                            msg = msg.substring(0,i) + '<span class="think">' + subMsg.substring(0,endParam) + '</span>';
+                            if(endParam < msg.length) msg += subMsg.substr(endParam+2);
                             count++;
                         }
                     }
@@ -265,9 +286,8 @@ module.exports = {
                             param = subMsg.substring(0,pipe);
                             endParam = subMsg.indexOf('}}');
                             if(endParam !== -1) {
-                                flags.push({type:'color',inline:true,value:{color:param,text:subMsg.substring(pipe+1,endParam),idx:count},priority:9});
-                                msg = msg.substring(0,i) + '|' + subMsg.substr(endParam+2);
-                                count++;
+                                msg = msg.substring(0,i) + '<span class="' + colorize(param) + '">' + subMsg.substring(pipe+1,endParam) + '</span>';
+                                if(endParam < msg.length) msg += subMsg.substr(endParam+2);
                             }
                         }
                     }

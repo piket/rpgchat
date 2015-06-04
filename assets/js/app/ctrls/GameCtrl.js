@@ -1,6 +1,8 @@
 RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserService','AlertService','ChatService', function($scope,$routeParams,$sce,Game,UserService,AlertService,ChatService){
     var rolls = [];
     var msgIdx = 0;
+    var chatWindow = $('#chatWindow');
+    console.log('window',chatWindow)
     $scope.messages = [];
     $scope.previous = [];
     $scope.users = [];
@@ -11,6 +13,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
     $scope.characters = {};
     $scope.characters[$scope.user.username] = {color:'default',player:true};
     $scope.view = {};
+    $scope.values = {};
 
     io.socket.post('/api/chat/join',{gameId:$routeParams.id,userId:$scope.user.id},function(data, jwRes) {
         if(data) {
@@ -35,6 +38,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
                         $scope.characters[character.name] = {color:character.color, player:(character.player == $scope.user.id)};
                         if(character.player == $scope.user.id) {
                             $scope.user.langauges = $scope.user.langauges.concat(character.langauges);
+                            $scope.values['C'+character.id] = character.values;
                         }
                     });
                     data.messages.forEach(function(msg) {
@@ -58,6 +62,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
                     // });
                     $scope.messages.push({classes:'system',message:'Welcome to '+$scope.game.name+' chat.'});
                     console.log('chat data',data);
+                    chatWindow.scrollTop = chatWindow.scrollHeight;
                     $scope.loading = false;
 
                     console.log('room user',$scope.user);
@@ -110,6 +115,8 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
             var msg = ChatService.parseChat(item,$scope.user,$scope.user.id == $scope.game.gm.id);
             $scope.messages.push(msg);
             console.log('new msg',msg);
+            console.log('scroll:',chatWindow.scrollTop,chatWindow.scrollHeight);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
             // if(_.find(item.flags, {type:'roll'})) {
             //     $('#'+item.id).tooltip({delay:50});
             // }

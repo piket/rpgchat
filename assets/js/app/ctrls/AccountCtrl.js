@@ -4,4 +4,8 @@ RPGChat.controller('AccountCtrl', ['$scope','UserService', function($scope,UserS
         $scope.user = data;
         console.log('Account user:',$scope.user);
     });
+
+    $scope.characterGame = function(charId) {
+        return _.result(_.find($scope.user.playingGames, {id:charId}), 'name');
+    }
 }]);

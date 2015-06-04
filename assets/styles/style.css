@@ -1,3 +1,7 @@
+a {
+    color: #9c27b0;
+}
+
 .menu-btn {
     top: 0;
     right: 24px;
@@ -151,4 +155,9 @@
 
 .table-header {
     font-size: 125%;
+}
+
+.playing-in {
+    color: #9c27b0;
+    font-style: italic;
 }

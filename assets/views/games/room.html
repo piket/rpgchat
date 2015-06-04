@@ -5,11 +5,11 @@
             <a href="/game/{{game.id}}/archive" class="waves-effect waves-purple btn-flat col s12 m12 l12">Archive</a>
         </div>
         <div ng-repeat="character in validSheets()" class="row">
-            <a href="#" ng-click="view[character.id] = !view[character.id]" class="waves-effect waves-purple btn-flat col s12 m12 l12 sheet-btn">{{character.name}}</a>
+            <a href="#" ng-click="view[character.id] = !view[character.id]" class="waves-effect waves-purple col s12 m12 l12 sheet-btn">{{character.name}}</a>
         </div>
     </div>
     <div class="col s11 m5 l3">
-        <div class="chat-view">
+        <div id="chatWindow" class="chat-view">
             <ul class="chat">
                 <li ng-repeat="msg in messages" class="chat-message {{msg.classes}}" ng-bind-html="msg.message">
                     <!-- chat message goes here -->
@@ -26,7 +26,7 @@
                 </div>
                 <div class="col s8 m8 l8">
                 <select ng-model="as" class="browser-default">
-                    <option ng-repeat="(char, val) in characters" ng-if="val.player" value="{{char}}" class="chat-{{val.color}}">{{char}}</option>
+                    <option ng-repeat="(char, val) in characters" ng-if="val.player" value="{{char}}" class="chat-{{val.color}} msg-color">{{char}}</option>
                 </select>
                 </div>
             </div>

@@ -89,21 +89,24 @@ angular.module('draggable',[]).directive('draggable', ['$document','$compile',fu
 
             $element.on('mousedown', function(event) {
                 // Prevent default dragging of selected content
-                event.preventDefault();
-                if($element.attr('drag-template')) {
-                    newScope = $scope.$new();
-                    console.log('new scope:',newScope)
-                    newElm = $compile($element.clone())($scope.$parent);
+                // console.log(event.button)
+                if(event.button === 0) {
+                    event.preventDefault();
+                    if($element.attr('drag-template')) {
+                        newScope = $scope.$new();
+                        // console.log('new scope:',newScope)
+                        newElm = $compile($element.clone())($scope.$parent);
 
-                    $element.removeAttr('drag-template');
-                    $element.after(newElm);
+                        $element.removeAttr('drag-template');
+                        $element.after(newElm);
+                    }
+
+                    startX = event.screenX - x;
+                    startY = event.screenY - y;
+                    $document.on('mousemove', mousemove);
+                    $document.on('mouseup', mouseup);
+                    $element.addClass('drag-active');
                 }
-
-                startX = event.screenX - x;
-                startY = event.screenY - y;
-                $document.on('mousemove', mousemove);
-                $document.on('mouseup', mouseup);
-                $element.addClass('drag-active');
             });
 
             function mousemove(event) {
@@ -138,8 +141,7 @@ angular.module('draggable',[]).directive('draggable', ['$document','$compile',fu
                 var destroyElm = false;
                 $document.unbind('mousemove', mousemove);
                 $document.unbind('mouseup', mouseup);
-                console.log("y by x",y,x);
-                console.log($scope)
+                // console.log($scope)
 
                 if(gridSizeY > 0) {
                     y -= (y % gridSizeY) - gridOffsetY;
@@ -176,6 +178,7 @@ angular.module('draggable',[]).directive('draggable', ['$document','$compile',fu
                 if(destroyY && (y < destroyY.min || y > destroyY.max)) {
                     destroyElm = true;
                 }
+                console.log("y by x",y,x);
 
                 if(destroyElm) {
                     console.log('destroyed');

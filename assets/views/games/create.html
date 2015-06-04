@@ -51,11 +51,40 @@
     </div>
 </div>
 
-<div id="customsheet" class="modal">
+<div id="rename" class="modal rename-modal">
     <div class="modal-content">
-        <h4>Custom sheets are not yet avaliable</h4>
+        <form ng-submit="renameTemplate()">
+            <div class="input-field">
+                <input type="text" ng-model="labelName" id="rename-input">
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
-        <a ng-click="cancel()" class="modal-action waves-effect waves-red btn-flat">Cancel</a>
+        <a ng-click="renameTemplate()" class="modal-action waves-effect waves-green btn-flat">Rename</a>
+        <a ng-click="cancelRename()" class="modal-action waves-effect waves-red btn-flat">Cancel</a>
+    </div>
+</div>
+
+<div id="customsheet" class="modal sheet-modal">
+    <div class="modal-content">
+        <!-- <h4>Custom sheets are not yet avaliable</h4> -->
+        <div id="custom-sheet" class="row">
+            <div id="character-sheet" class="col s7 m7 l7">
+            </div>
+            <div class="col s3 m3 l3 sheet-toolbar">
+                <h6 class="center">Drag elements onto the sheet</h6>
+                <draggable class="template input-field" drag-template="true" destroy-y="{min:-16,max:746}" destroy-x="{min:0,max:746}" offset-x="0" offset-y="5" grid-x="20" grid-y="20" starting-y="5" starting-x="815"><textarea></textarea><label>Right Click to rename</label></draggable>
+                <draggable class="template input-field" drag-template="true" offset-x="0" offset-y="5" grid-y="20" grid-x="20" starting-y="60" starting-x="815"><input type="text"><label>Right Click to rename</label></draggable>
+            </div>
+            <div class="col s2 m2 l2 sheet-actions">
+                <a ng-click="saveSheet()" class="waves-effect waves-light btn purple custom-btn">Save</a>
+                <a ng-click="cancel()" class="waves-effect waves-light btn red custom-btn">Cancel</a>
+                <a ng-click="reset()" class="waves-effect waves-light btn green custom-btn">Reset</a>
+                <div class="input-field">
+                    <input type="text" ng-model="sheetName">
+                    <label>Sheet Name</label>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,6 +1,47 @@
+#custom-sheet {
+    position: relative;
+}
+
+.sheet-toolbar {
+    width: 400px;
+}
+
+.sheet-toolbar>h6 {
+    position: relative;
+    top: -20px;
+}
+
+.drag-active {
+    z-index: 9999;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
+    border: 1px solid #f50057;
+}
+
+.template {
+    border: 1px solid #d500f9;
+}
+
+.template>textarea{
+    min-width: 250px;
+}
+
+.template>input[type="text"]{
+    min-width: 250px;
+}
+
+.sheet-modal {
+    height: 820px;
+    width: 80%;
+}
+
+.rename-modal {
+    z-index: 999999;
+}
+
 #character-sheet {
     border: 2px solid #4a148c;
-    margin: 0 auto;
     padding: 5px 5px 5px 5px;
     width: 810px;
     height: 810px;
@@ -22,4 +63,21 @@
 .save-btn {
     padding-left: 8px;
     padding-right: 8px;
+}
+
+.sheet-actions {
+    width: 250px;
+    /*position: fixed;*/
+    top: 5px;
+    right: 5px;
+}
+.custom-btn {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.sheet-name {
+    position: fixed;
+    top: 55px;
+    right: 5px;
 }
