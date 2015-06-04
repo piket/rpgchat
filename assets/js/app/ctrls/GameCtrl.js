@@ -173,7 +173,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
     }
 
     function contains(to,compare) {
-        if(msg.to.indexOf('gm') !== -1) return true;
+        if(to.indexOf('gm') !== -1 && $scope.user.id == $scope.game.gm.id) return true;
         return _.intersection(to,compare).length > 0;
     }
 }]);

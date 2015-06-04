@@ -17,7 +17,7 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
                 case 'white':
                     return 'chat-'+c+' msg-color';
                 default:
-                    return 'chat-default msg-color';
+                    return '';
             }
         }
         var garble = function(textArr,lang) {
