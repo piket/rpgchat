@@ -17,9 +17,11 @@ module.exports = {
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
-  prodMongodbServer: {
-    adapter: 'sails-mongo',
-    url: process.env.MONGOLAB_URI
+  connections: {
+    prodMongodbServer: {
+      adapter: 'sails-mongo',
+      url: process.env.MONGOLAB_URI
+    }
   },
   models: {
     connection: 'prodMongodbServer'
