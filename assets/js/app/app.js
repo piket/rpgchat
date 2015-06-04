@@ -32,6 +32,7 @@ RPGChat.run(['$rootScope','$location','$routeParams','Game','UserService','Alert
                             if(!playing) {
                                 Game.update({id:$routeParams.id},{players:game.players.concat([UserService.currentUser])});
                                 AlertService.add('green','You have joined '+game.name);
+                                location.href='/game/'+$routeParams.id+'/dashboard';
                             } else {
                                 AlertService.add('yellow black-text','You have already joined this game.');
                             }
