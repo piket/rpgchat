@@ -129,16 +129,22 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
             console.log('sending chat')
             $scope.sendChat();
         } else if(e.which == 13 && e.shiftKey) {
-            $scope.body += '\n';
+            $scope.$evalAsync(function() {
+                $scope.body += '\n';
+            });
         } else if(e.which == 38 && e.shiftKey && msgIdx > 0) {
             console.log(msgIdx,'previous',$scope.previous);
             msgIdx--;
-            $scope.body = $scope.previous[msgIdx];
+            $scope.$evalAsync(function() {
+                $scope.body = $scope.previous[msgIdx];
+            });
             console.log($scope.body);
         } else if(e.which == 40 && e.shiftKey && msgIdx < $scope.previous.length - 1) {
             console.log(msgIdx,'previous',$scope.previous);
             msgIdx++;
-            $scope.body = $scope.previous[msgIdx];
+            $scope.$evalAsync(function() {
+                $scope.body = $scope.previous[msgIdx];
+            });
             console.log($scope.body);
         }
     });

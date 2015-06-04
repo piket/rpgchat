@@ -16,7 +16,6 @@
         <select ng-model="sheet" class="browser-default" ng-class="{invalid:invalid.sheet}">
             <option value="none">Choose a Character Sheet</option>
             <option ng-repeat="sheet in sheets | orderBy : sortName" value="{{sheet.id}}">{{sheet.name}}</option>
-            <option value="custom">Custom</option>
         </select>
         <!-- <label>Character Sheet</label> -->
     </div>
@@ -55,7 +54,7 @@
     <div class="modal-content">
         <form ng-submit="renameTemplate()">
             <div class="input-field">
-                <input type="text" ng-model="labelName" id="rename-input">
+                <input type="text" ng-model="label.name" id="rename-input">
             </div>
         </form>
     </div>
@@ -81,8 +80,14 @@
                 <a ng-click="cancel()" class="waves-effect waves-light btn red custom-btn">Cancel</a>
                 <a ng-click="reset()" class="waves-effect waves-light btn green custom-btn">Reset</a>
                 <div class="input-field">
-                    <input type="text" ng-model="sheetName">
+                    <input type="text" ng-model="custom.name">
                     <label>Sheet Name</label>
+                </div>
+                <div class="input-field">
+                    <select ng-model="custom.system" class="browser-default" ng-class="{invalid:invalid.system}">
+                        <option value="any">Any System</option>
+                        <option ng-repeat="system in systems | orderBy : sortName" value="{{system.id}}">{{system.name}}</option>
+                    </select>
                 </div>
             </div>
         </div>

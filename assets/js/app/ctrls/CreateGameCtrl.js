@@ -2,6 +2,7 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
     var publicDesc = "Public games can be searched for and anyone can request to join. GMs still must approve all requests.";
     var privateDesc = "Private games cannot be searched for, GMs must send invites to players who are automatically approved if they respond yes."
     var template = null;
+    var renameInput = $('#rename-input');
 
     $scope.sortNames = function(item) {
         console.log(item.name);
@@ -23,12 +24,13 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
         sheet: false
     }
 
-    $scope.basicParams = {
-        startingX: 5,
-        gridY: 10,
-        gridX: 10,
-        destroyX: {min:0,max:810},
-        destroyY: {min:0,max:810}
+    $scope.custom = {
+        name: '',
+        system: 'any'
+    }
+
+    $scope.label = {
+        name: ''
     }
 
     $('#confirm-modal').leanModal({
@@ -46,10 +48,13 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
 
     $scope.$watch('system', function(val) {
         console.log('system changed',val);
-        if(val == '556a08b5713cc6cf4056bde5') {
+        if(val == '556a08b5713cc6cf4056bde5' || val == '55709a9728587811002fabec') {
             val = 'none';
         }
-        $scope.sheets = Sheet.query({systemId:val});
+        Sheet.query({systemId:val}, function(data) {
+            $scope.sheets = data;
+            $scope.sheets.push({id:'custom',name:'Custom'});
+        });
     });
 
     $scope.$watch('sheet', function(val) {
@@ -117,20 +122,20 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
     }
 
     $scope.cancel = function() {
-        var items = [];
-        angular.element('draggable').each(function(i,e) {
-            var elm = angular.element(e);
-            var x = parseInt(elm.css('top'));
-            var y = parseInt(elm.css('left'));
-            console.log(x,y);
-            if(x <= 745 && x >= 0 && y <= 745 && y >= -15) {
-                var obj = parseElements(elm.children()[0], elm.children()[1], i);
-                items.push([x,y,obj]);
-            }
-            if(!elm.attr('drag-template')) elm.remove();
-        });
-        window.localStorage.customsheet = JSON.stringify(items);
-        window.localStorage.customsheetname = $scope.sheetname;
+        // var items = [];
+        // angular.element('draggable').each(function(i,e) {
+        //     var elm = angular.element(e);
+        //     var x = parseInt(elm.css('top'));
+        //     var y = parseInt(elm.css('left'));
+        //     console.log(x,y);
+        //     if(x <= 745 && x >= 0 && y <= 745 && y >= -15) {
+        //         var obj = parseElements(elm.children()[0], elm.children()[1], i);
+        //         items.push([x,y,obj]);
+        //     }
+        //     if(!elm.attr('drag-template')) elm.remove();
+        // });
+        // window.localStorage.customsheet = JSON.stringify(items);
+        // window.localStorage.customsheetname = $scope.custom.name;
         $('#customsheet').closeModal();
         $scope.sheet = 'none';
     }
@@ -142,8 +147,8 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
                 elm.remove();
             }
         });
-        delete window.localStorage.customsheet;
-        delete window.localStorage.customsheetname;
+        // delete window.localStorage.customsheet;
+        // delete window.localStorage.customsheetname;
     }
 
     $scope.done = function() {
@@ -152,66 +157,81 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
         var error = false;
         angular.element('draggable').each(function(i,e) {
             elm = angular.element(e);
-            x = parseInt(elm.css('top'));
-            y = parseInt(elm.css('left'));
-            console.log(x,y);
+            y = parseInt(elm.css('top'));
+            x = parseInt(elm.css('left'));
+            console.log('x',x,'y',y);
             if(x <= 745 && x >= 0 && y <= 745 && y >= -15) {
                 var obj = parseElements(elm.children()[0], elm.children()[1], i);
                 if(names[obj.name]) {
-                    alert('You cannot have duplicate names for your fields, please remove all duplicates.');
+                    if(!error) alert('You cannot have duplicate names for your fields, please remove all duplicates.');
                     error = true;
-                    return;
                 } else {
                     names[obj.name] = true;
                 }
                 items.push([x,y,obj]);
             }
-            if(!elm.attr('drag-template')) elm.remove();
+            // if(!elm.attr('drag-template')) elm.remove();
         });
+                // console.log(items);
         if(items.length > 0 && !error) {
-            window.localStorage.customsheet = JSON.stringify(items);
-            window.localStorage.customsheetname = $scope.sheetname;
-            var sheet = new Sheet();
-            sheet.name = $scope.sheetname;
-            sheet.system = $scope.system;
-            sheet.form = parseElements(items);
-            sheet.$save(function(data) {
-                $scope.sheets.pop();
-                $scope.sheets.push(data);
-                $scope.sheet = data.id;
+            // window.localStorage.customsheet = JSON.stringify(items);
+            // window.localStorage.customsheetname = $scope.custom.name;
+            // var sheet = new Sheet();
+            var sheet = {};
+            sheet.name = $scope.custom.name;
+            if($scope.custom.system !== 'any') sheet.system = $scope.custom.system;
+            // sheet.forms = JSON.stringify(items);
+            sheet.forms = items;
+            console.log(sheet);
+            // sheet.$save(function(data) {
+            Sheet.create(sheet, function(data) {
+                console.log(data);
+                $scope.sheets[$scope.sheets.length-1] = data;
+                $scope.$evalAsync(function() {
+                    $scope.sheet = data.id;
+                });
+
                 $('#customsheet').closeModal();
+                AlertService.alert('blue','You have created the new character sheet '+$scope.custom.name);
             });
         } else {
-            if(items.length === 0) alert('You cannot save an empty sheet.');
+            if(items.length === 0 && !error) alert('You cannot save an empty sheet.');
         }
     }
 
     $scope.saveSheet = function() {
-        if($scope.sheetName === "") {
+        if($scope.custom.name === "") {
             alert('Please enter a name for your sheet');
         } else {
             $scope.done();
         }
     }
 
+    renameInput.focus(function() {this.select()});
+
     $('#custom-sheet').on('contextmenu','.template',function(e) {
         e.preventDefault();
         template = $(e.target);
         // console.log(template.is('label'))
         if(!template.is('label')) template = template.next('label');
-        $scope.labelName = template.text();
-        console.log(template,$scope.labelName);
+        $scope.$evalAsync(function() {
+            $scope.label.name = template.text();
+        })
+
+        console.log(template,$scope.label.name);
         $('#rename').openModal();
-        $('#rename-input').focus();
+        renameInput.focus();
     });
 
     $scope.renameTemplate = function() {
-        template.text($scope.labelName);
+        template.text($scope.label.name);
         $('#rename').closeModal();
+        renameInput.blur();
     }
 
     $scope.cancelRename = function() {
         $('#rename').closeModal();
+        renameInput.blur();
     }
 
     function parseElements(field,label,i) {
@@ -227,7 +247,6 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
                 break;
         }
         obj.name = $(label).text().replace(/\W/g,'');
-        if(obj.name.toLowerCase() == 'rightclicktorename') obj.name += i;
         return obj;
     }
 }]);

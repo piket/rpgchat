@@ -37,6 +37,8 @@ module.exports.routes = {
   'post /api/auth': 'AuthController.login',
   'delete /api/auth': 'AuthController.logout',
   'post /api/signup': 'AuthController.signup',
+  'post /api/sheet': 'SheetController.create',
+  'post /api/game': 'GameController.create',
 
   'get *': {
     controller:"SiteController",

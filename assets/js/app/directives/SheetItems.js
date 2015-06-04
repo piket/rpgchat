@@ -8,7 +8,9 @@ angular.module('sheetItem', []).directive('sheetItem', ['$compile','$sce', funct
             edit: '=?',
             display: '=',
             name: '=',
-            toggle: '='
+            toggle: '=',
+            // x: '=',
+            // y: '='
         }, // {} = isolate, true = child, false/undefined = no change
         // controller: function($scope, $element, $attrs, $transclude) {},
         // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
@@ -26,12 +28,23 @@ angular.module('sheetItem', []).directive('sheetItem', ['$compile','$sce', funct
                         case 'textarea':
                             html = '<div class="input-field injected"><textarea name="'+$scope.name+'" class="" ng-model="values.'+$scope.name+'"></textarea><label ng-class="{active:values.'+$scope.name+'}">'+$scope.name+'</label></div>';
                             break;
+                        case 'input-text':
+                            html = '<div class="input-field injected"><input type="text" name="'+$scope.name+'" ng-model="values.'+$scope.name+'"><label ng-class="{active:values.'+$scope.name+'}">'+$scope.name+'</label></div>';
+                            break;
                     }
+                    // html += '<div class="btn-div">' +
+                        // '<a ng-click="charsheet.submitEdit('+$scope.name+')" class="btn-floating waves-effect waves-light purple sheet-edit-btn"><i class="mdi-action-done"></i></a>' +
+                        // '<a ng-click="charsheet.clear('+$scope.name+')" class="btn-floating waves-effect waves-light purple sheet-edit-btn"><i class="mdi-content-clear"></i></a></div>';
                 } else {
                     switch($scope.display) {
                         case 'p':
                             html = '<p class="injected" ng-bind-html="values.'+$scope.name+' | preserveLines"></p>';
+                            break;
+                        case 'b':
+                            html = '<b class="injected" ng-bind-html="values.'+$scope.name+'"></b>';
+                            break;
                     }
+                    // html += '<div class="btn-div"><a ng-click="toggleEdit('+$scope.name+')" class="btn-floating waves-effect waves-light purple sheet-edit-btn"><i class="mdi-editor-mode-edit"></i></a></div>';
                 }
                 // console.log('toggle val',newVal,'sheet item html:',html)
                 // console.log('vars:',$scope)
@@ -41,3 +54,5 @@ angular.module('sheetItem', []).directive('sheetItem', ['$compile','$sce', funct
         }
     };
 }]);
+
+//  style="postion:absolute;top:'+$scope.y+';left:'+$scope.x+'"
