@@ -61,6 +61,7 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
             var output = item.message.replace(/\n/g,'<br>').split('|');
             var classes = ['',''];
             var label = true;
+            var as = true;
             var text = "";
             var rollFlag = false;
             // Priority: cmd rolling = 0, cmd lang = 1, emote = 2, think = 3, desc = 4, cmd color = 5, inline roll = 6, inline lang = 7, inline color = 8
@@ -102,6 +103,7 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
                     case 'desc':
                         classes[1] = 'desc';
                         label = false;
+                        as = false;
                         break;
                     case 'color':
                         if(flag.inline) {
@@ -132,8 +134,10 @@ console.log('chat output',output)
 
             if(label) {
                 text = '<span class="as">'+item.as+':</span> '+output.join(' ');
-            } else {
+            } else if(as) {
                 text = item.as +' '+ output.join(' ');
+            } else {
+                text = output.join(' ');
             }
 
             console.log('parsed msg:',text)

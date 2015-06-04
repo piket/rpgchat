@@ -24,9 +24,9 @@
     font-size: 80%;
 }
 
-.chat-view {
+#chat-view {
     overflow-y: scroll;
-    max-height: 400px;
+    max-height: 600px;
 }
 
 .chat-message {
@@ -156,4 +156,20 @@ span.think {
     text-decoration: none;
     color: black;
     border: 1px solid #9c27b0;
+}
+
+.user-list {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    text-align: center;
+}
+
+.user-list-item {
+    display: inline;
+    margin-right: 20px;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    border: 5px solid #9c27b0;
+    border-radius: 10px;
 }

@@ -1,7 +1,8 @@
 RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserService','AlertService','ChatService', function($scope,$routeParams,$sce,Game,UserService,AlertService,ChatService){
     var rolls = [];
     var msgIdx = 0;
-    var chatWindow = $('.chat-view');
+    var chatWindow = $('#chatWindow');
+    var chatView = $('#chat-view');
     console.log('window',chatWindow)
     $scope.messages = [];
     $scope.previous = [];
@@ -27,11 +28,14 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
                 } else {
                     AlertService.alert('yellow black-text','Internal service error: '+data.error);
                 }
-            } else if(Array.isArray(data.messages)) {
+            } else {
+                $scope.users.push($scope.user.username);
+            }
+
+            if(!data.error && Array.isArray(data.messages)) {
                 $scope.$evalAsync(function(){
                     $scope.as = $scope.user.username;
                     $scope.game = data;
-                    $scope.users = [];
                     $scope.sheet = data.sheetTemplate;
                     $scope.game.characters.forEach(function(character) {
                         $scope.view[character.id] = false;
@@ -62,7 +66,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
                     // });
                     $scope.messages.push({classes:'system',message:'Welcome to '+$scope.game.name+' chat.'});
                     console.log('chat data',data);
-                    chatWindow.scrollTop(chatWindow.height());
+                    chatView.scrollTop(chatWindow.height());
                     $scope.loading = false;
 
                     console.log('room user',$scope.user);
@@ -104,11 +108,11 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
     io.socket.on('newmessage',addItemToChat);
 
     function addUser(user) {
-        // $scope.users.push(user);
+        $scope.users.push(user);
     }
 
     function removeUser(user) {
-        // $scope.users.splice($scope.users.indexOf(user),1);
+        $scope.users.splice($scope.users.indexOf(user),1);
     }
 
     function addItemToChat(item) {
@@ -118,7 +122,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
             $scope.messages.push(msg);
             console.log('new msg',msg);
             console.log('scroll:',chatWindow.scrollTop,chatWindow.scrollHeight);
-            chatWindow.scrollTop(chatWindow.height());
+            chatView.scrollTop(chatWindow.height());
             // if(_.find(item.flags, {type:'roll'})) {
             //     $('#'+item.id).tooltip({delay:50});
             // }
