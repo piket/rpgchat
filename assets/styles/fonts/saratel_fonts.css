@@ -3,7 +3,7 @@
 
 
 @font-face {
-    font-family: 'sarati_eldamar';
+    font-family: 'saratieldamar';
     src: url('sarael__-webfont.eot');
     src: url('sarael__-webfont.eot?#iefix') format('embedded-opentype'),
          url('sarael__-webfont.woff2') format('woff2'),
@@ -19,7 +19,7 @@
 
 
 @font-face {
-    font-family: 'sarati_eldamar_bar';
+    font-family: 'saratieldamarbar';
     src: url('saraelb_-webfont.eot');
     src: url('saraelb_-webfont.eot?#iefix') format('embedded-opentype'),
          url('saraelb_-webfont.woff2') format('woff2'),

@@ -128,18 +128,20 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
 
     function addItemToChat(item) {
         // console.log('message recieved',$scope.user.id == $scope.game.gm.id)
-        $scope.$evalAsync(function() {
-            var msg = ChatService.parseChat(item,$scope.user,$scope.user.id == $scope.game.gm.id);
-            $scope.messages.push(msg);
+        var msg = ChatService.parseChat(item,$scope.user,$scope.user.id == $scope.game.gm.id);
+        if(msg.to.length === 0 || msg.from === $scope.user.id || contains(msg.to,$scope.characters)) {
+            $scope.$evalAsync(function() {
+                $scope.messages.push(msg);
             // console.log('new msg',msg);
             // console.log('scroll:',chatWindow.scrollTop,chatWindow.scrollHeight);
-        // if(_.find(item.flags, {type:'roll'})) {
-        //     $('#'+item.id).tooltip({delay:50});
-        // }
-        });
-        $timeout(function(){
-            chatView.scrollTop(chatWindow.height());
-        }, 0);
+            // if(_.find(item.flags, {type:'roll'})) {
+            //     $('#'+item.id).tooltip({delay:50});
+            // }
+            });
+            $timeout(function(){
+                chatView.scrollTop(chatWindow.height());
+            }, 0);
+        }
     }
 
     $('#msg-body').on('keydown',function(e) {

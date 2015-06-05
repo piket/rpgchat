@@ -581,7 +581,7 @@ RPGChat.factory('LangaugeService', function(){
         },
         elven: {
             pattern: 'font-letter',
-            font: 'sarati_eldamar',
+            font: 'saratieldamar',
             a: '&#214;',
             A: '&#216;',
             b: '&#095;',
@@ -648,7 +648,7 @@ RPGChat.factory('LangaugeService', function(){
         },
         elvenbar: {
             pattern: 'font-letter',
-            font: 'sarati_eldamar_bar',
+            font: 'saratieldamarbar',
             a: '&#214;',
             A: '&#216;',
             b: '&#095;',
