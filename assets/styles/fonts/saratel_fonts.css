@@ -4,12 +4,12 @@
 
 @font-face {
     font-family: 'saratieldamar';
-    src: url('sarael__-webfont.eot');
-    src: url('sarael__-webfont.eot?#iefix') format('embedded-opentype'),
-         url('sarael__-webfont.woff2') format('woff2'),
-         url('sarael__-webfont.woff') format('woff'),
-         url('sarael__-webfont.ttf') format('truetype'),
-         url('sarael__-webfont.svg#sarati_eldamar_ltrregular') format('svg');
+    src: url('/fonts/sarael__-webfont.eot');
+    src: url('/fonts/sarael__-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/sarael__-webfont.woff2') format('woff2'),
+         url('/fonts/sarael__-webfont.woff') format('woff'),
+         url('/fonts/sarael__-webfont.ttf') format('truetype'),
+         url('/fonts/sarael__-webfont.svg#sarati_eldamar_ltrregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -19,13 +19,13 @@
 
 
 @font-face {
-    font-family: 'saratieldamarbar';
-    src: url('saraelb_-webfont.eot');
-    src: url('saraelb_-webfont.eot?#iefix') format('embedded-opentype'),
-         url('saraelb_-webfont.woff2') format('woff2'),
-         url('saraelb_-webfont.woff') format('woff'),
-         url('saraelb_-webfont.ttf') format('truetype'),
-         url('saraelb_-webfont.svg#sarati_eldamar_ltr_barregular') format('svg');
+    font-family: '/fonts/saratieldamarbar';
+    src: url('/fonts/saraelb_-webfont.eot');
+    src: url('/fonts/saraelb_-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/saraelb_-webfont.woff2') format('woff2'),
+         url('/fonts/saraelb_-webfont.woff') format('woff'),
+         url('/fonts/saraelb_-webfont.ttf') format('truetype'),
+         url('/fonts/saraelb_-webfont.svg#sarati_eldamar_ltr_barregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
