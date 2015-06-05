@@ -1,4 +1,8 @@
 RPGChat.factory('LangaugeService', function(){
+    var rot13 = function(word) {
+      return word.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});
+    }
+
     return {
         defaults: {
             cat: 'cat-ish',
@@ -62,7 +66,15 @@ RPGChat.factory('LangaugeService', function(){
             eldamari: 'elven',
             'high elven': 'elvenbar',
             'high elvish': 'elvenbar',
-            elfish: 'elvenbar'
+            elfish: 'elvenbar',
+            mandalorian: 'mandalorian',
+            scratch: 'mandalorian',
+            primal: 'mandalorian',
+            deep: 'mandalorian',
+            space: 'klingon',
+            klingon: 'klingon',
+            piqad: 'klingon',
+            alien: 'klingon'
         },
         'cat-ish': {
             pattern: 'word',
@@ -700,6 +712,16 @@ RPGChat.factory('LangaugeService', function(){
             9: '&#198;',
             0: '&#204;',
             '$': '&#250;'
+        },
+        mandalorian: {
+            pattern: 'font-word',
+            font: 'mandalorian',
+            transform: rot13
+        },
+        klingon: {
+            pattern: 'font-word',
+            font: 'klingon',
+            transform: rot13
         }
     };
 });

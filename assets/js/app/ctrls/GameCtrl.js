@@ -169,7 +169,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
     });
 
     $scope.$watch('body', function(val) {
-        if(val.trim() == '/ooc') {
+        if(val && val.trim() == '/ooc') {
             $scope.body = '';
             $scope.as = $scope.user.username;
         }
