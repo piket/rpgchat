@@ -22,6 +22,17 @@ var colorize = function(c) {
     }
 }
 
+var sanitize = function(text) {
+    for(var i = 0; i < text.length; i++) {
+        if(text[i] == '<') {
+            var endTag = text.indexOf('>');
+            text = text.substring(0,i) + text.substr(endTag+1);
+            i--;
+        }
+    }
+    return text;
+}
+
 module.exports = {
     parseMsgCmd: function(msgData) {
         // console.log('starting msg parse')
@@ -310,7 +321,7 @@ module.exports = {
                     break;
             }
         }
-        msgData.message = msg;
+        msgData.message = sanitize(msg);
         msgData.flags = flags;
         return msgData;
     }
