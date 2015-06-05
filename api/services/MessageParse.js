@@ -265,6 +265,10 @@ module.exports = {
                                 count++;
                             }
                         }
+                    } else {
+                        endParam = msg.indexOf('>');
+                        msg = msg.substring(0,i) + msg.substr(endParamg+1);
+                        i--;
                     }
                     break;
                 case '*':
@@ -321,7 +325,8 @@ module.exports = {
                     break;
             }
         }
-        msgData.message = sanitize(msg);
+        // msgData.message = sanitize(msg);
+        msgData.message = msg;
         msgData.flags = flags;
         return msgData;
     }
