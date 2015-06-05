@@ -29,7 +29,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
                     AlertService.alert('yellow black-text','Internal service error: '+data.error);
                 }
             } else {
-                $scope.users.push($scope.user.username);
+                // $scope.users.push($scope.user.username);
             }
 
             if(!data.error && Array.isArray(data.messages)) {
@@ -103,16 +103,20 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','Game','UserServi
         }
     }
 
+    // $scope.$watch('messages', function() {
+    //     chatView.scrollTop(chatWindow.height());
+    // });
+
     io.socket.on('userleave',removeUser);
     io.socket.on('userjoin',addUser);
     io.socket.on('newmessage',addItemToChat);
 
     function addUser(user) {
-        $scope.users.push(user);
+        // $scope.users.push(user.username);
     }
 
     function removeUser(user) {
-        $scope.users.splice($scope.users.indexOf(user),1);
+        // $scope.users.splice($scope.users.indexOf(user.username),1);
     }
 
     function addItemToChat(item) {

@@ -58,8 +58,9 @@
             <li class="collection-header"><h5 class="centered"><b>GM: </b>{{game.gm.username}}</h5></li>
             <li class="collection-header"><h5>Players</h5></li>
             <li ng-repeat="player in game.players" class="collection-item player">
-                {{player.username}}
                 <a  ng-if="user.id == player.id" href="/character/{{game.id}}" class="btn waves-effect waves-light purple character-btn"><i class="mdi-action-accessibility"></i></a>
+                {{player.username}}
+                <span class="right">{{charName(game.characters,player.id)}}</span>
             </li>
         </ul>
     </div>

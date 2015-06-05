@@ -133,7 +133,7 @@ module.exports = {
                     var context = this.getCmdParams(remaining);
                     remaining = context.remaining;
                     param = context.param;
-                    var pipe = param.indexOf('|');
+                    var pipe = param.search(/[\\|=]/);
                     flags.push({type:'color',value:param.substr(pipe+1).trim(),priority:5});
                     as = param.substring(0,pipe).trim();
                     break;
@@ -199,7 +199,7 @@ module.exports = {
         if(conditional !== -1) {
             var thresIdx = rollStr.indexOf('(');
             var thresEnd = rollStr.indexOf(')');
-            var pipe = rollStr.indexOf('|');
+            var pipe = rollStr.search(/[\\|=]/);
 
             var success = rollStr.substring(thresEnd+1,pipe);
             var failure = rollStr.substr(pipe+1);
@@ -244,7 +244,7 @@ module.exports = {
                 case '<':
                     if(msg[i+1] === '<'){
                         subMsg = msg.substr(i+2)
-                        pipe = subMsg.indexOf('|');
+                        pipe = subMsg.search(/[\\|=]/);
                         if(pipe !== -1) {
                             param = subMsg.substring(0,pipe);
                             endParam = subMsg.indexOf('>>');
@@ -281,7 +281,7 @@ module.exports = {
                 case '{':
                     if(msg[i+1] === '{'){
                         subMsg = msg.substr(i+2);
-                        pipe = subMsg.indexOf('|');
+                        pipe = subMsg.search(/[\\|=]/);
                         if(pipe !== -1) {
                             param = subMsg.substring(0,pipe);
                             endParam = subMsg.indexOf('}}');

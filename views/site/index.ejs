@@ -20,6 +20,8 @@
     <div id="aboutmodal" class="modal">
         <div class="modal-content" ng-controller="AboutCtrl">
             <h4 class="center">Chat commands</h4>
+            <p>Chat commands come in two forms: slash (/something) commands which must be put at the start of your message, and inline commands which can be put anywhere in your message. Some commands have multiple forms such as /langauge, /lang, and /l. The long form /langauge is more obvious in what it does than the shortcut /l, but they all preform the same.</p>
+            <p>Slash commands will transform your entire message in some way while inline commands only change the text they surround. Some commands take more than one parameter such as /ascolor, these commands require a spearator character between the parameters. RPGChat supports three separater characters that may be used interchangably, these are <span class="code">=</span>, <span class="code">\</span>, and <span class="code">|</span>. The descriptions and examples below you the <span class="code">=</span> separater, but the other two work the same way.</p>
             <div class="row">
                 <table class="command-table">
                     <thead class="purple lighten-2 table-header">

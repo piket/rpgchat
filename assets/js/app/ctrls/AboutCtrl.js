@@ -58,7 +58,7 @@ RPGChat.controller('AboutCtrl', ['$scope','$sce', function($scope,$sce){
             result: 'Override your default color with the specified color.'
         },
         {
-            cmds: ['/asc ', '/ascolor ', $sce.trustAsHtml('<span class="code">"name <span style="font-style:normal">|</span> color"</span>')],
+            cmds: ['/asc ', '/ascolor ', $sce.trustAsHtml('<span class="code">"name <span style="font-style:normal">=</span> color"</span>')],
             result: 'Change the name of the entity preforming your message and override your default color with the specified character and color.'
         },
         {
@@ -66,15 +66,15 @@ RPGChat.controller('AboutCtrl', ['$scope','$sce', function($scope,$sce){
             result: 'Inline command: inserts a roll into the text of your message.'
         },
         {
-            cmds: [$sce.trustAsHtml('[[ <span class="code">roll string</span> ? <span class="code">(threshold)</span> <span class="code">success string</span> | <span class="code">failure string</span> ]]')],
+            cmds: [$sce.trustAsHtml('[[ <span class="code">roll string</span> ? <span class="code">(threshold)</span> <span class="code">success string</span> = <span class="code">failure string</span> ]]')],
             result: 'Inline command: inserts a roll into the text of your message and allows you to set conditional text to follow the roll if the roll meets the given threshold. This command cannot contain any other inline commands within the success or failure text.'
         },
         {
-            cmds: [$sce.trustAsHtml('<< <span class="code">language</span> | <span class="code">text</span> >>')],
+            cmds: [$sce.trustAsHtml('<< <span class="code">language</span> = <span class="code">text</span> >>')],
             result: 'Inline command: flags the wrapped text as spoken in the specified language. This command cannot contain any other inline commands within the wrapped text.'
         },
         {
-            cmds: [$sce.trustAsHtml('{{ <span class="code">color</span> | <span class="code">text</span> }}')],
+            cmds: [$sce.trustAsHtml('{{ <span class="code">color</span> = <span class="code">text</span> }}')],
             result: 'Inline command: the wrapped text will be colored by the specified color.'
         },
         {
