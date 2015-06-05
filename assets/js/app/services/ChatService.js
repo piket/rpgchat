@@ -31,6 +31,7 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
                     r += lang.charCodeAt(i);
                 }
                 lang = langArr[r % langArr.length];
+                if(lang === 'defaults') lang = langArr[(r % langArr.length) + 1];
 
                 var encode = LangaugeService[lang];
             }

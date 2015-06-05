@@ -46,7 +46,7 @@ RPGChat.controller('HomeCtrl', ['$scope','$location','UserService','AlertService
                 AlertService.alert('red','Invalid username or password');
             } else if (data && data.result) {
                 AlertService.alert('green','You have been logged in!');
-                $location.path('/search');
+                $location.path('/account');
             } else {
                 // alert('WARNING:',data.error);
                 $scope.invalid.login = true;
@@ -70,7 +70,7 @@ RPGChat.controller('HomeCtrl', ['$scope','$location','UserService','AlertService
                 AlertService.alert('red','Invalid entries, please try again.');
             } else {
                 AlertService.add('green','You have successfully signed up!');
-                $location.path('/search');
+                $location.path('/account');
             }
         });
     }
