@@ -4,12 +4,12 @@
 
 @font-face {
     font-family: 'mandalorian';
-    src: url('mandalor-webfont.eot');
-    src: url('mandalor-webfont.eot?#iefix') format('embedded-opentype'),
-         url('mandalor-webfont.woff2') format('woff2'),
-         url('mandalor-webfont.woff') format('woff'),
-         url('mandalor-webfont.ttf') format('truetype'),
-         url('mandalor-webfont.svg#mandalorianregular') format('svg');
+    src: url('/fonts/mandalor-webfont.eot');
+    src: url('/fonts/mandalor-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/mandalor-webfont.woff2') format('woff2'),
+         url('/fonts/mandalor-webfont.woff') format('woff'),
+         url('/fonts/mandalor-webfont.ttf') format('truetype'),
+         url('/fonts/mandalor-webfont.svg#mandalorianregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -17,7 +17,10 @@
 
 @font-face {
     font-family:"klingon";
-    src:url("KLTNG___.eot?") format("eot"),url("KLTNG___.woff") format("woff"),url("KLTNG___.ttf") format("truetype"),url("KLTNG___.svg#KlingonTNG") format("svg");
+    src: url("/fonts/KLTNG___.eot?") format("eot"),
+         url("/fonts/KLTNG___.woff") format("woff"),
+         url("/fonts/KLTNG___.ttf") format("truetype"),
+         url("/fonts/KLTNG___.svg#KlingonTNG") format("svg");
     font-weight:normal;
     font-style:normal;
 }

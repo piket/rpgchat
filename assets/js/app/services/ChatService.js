@@ -44,9 +44,9 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
                     text = text.split(' ').map(function(word) {
                         return encode.transform(word);
                     }).join(' ');
-                    return '<span style="font-family:'+encode.font+';">'+text+'</span>';
+                    return '<span style="font-family:\''+encode.font+'\';">'+text+'</span>';
                 } else if(encode.pattern == 'font-letter') {
-                    var newText = '<span style="font-family:'+encode.font+';">';
+                    var newText = '<span style="font-family:\''+encode.font+'\';">';
                     for(var i = 0; i < text.length; i++) {
                         if(text[i].match(/[ \.,-\/#!%\^&\*;:{}=\-_`~()|'"]/g)) {
                             newText += text[i];
