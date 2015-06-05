@@ -3,7 +3,7 @@ RPGChat.controller('AboutCtrl', ['$scope','$sce', function($scope,$sce){
         {
             cmds: ['/w ','/whisper '],
             code: 'name',
-            result: 'Whisper to the specified player or character. Only that player will see the message.'
+            result: 'Whisper to the specified player or character (case sensitive). Only that player will see the message.'
         },
         {
             cmds: ['/gm ', '/wg ', '/whisper '],
@@ -21,7 +21,7 @@ RPGChat.controller('AboutCtrl', ['$scope','$sce', function($scope,$sce){
         {
             cmds: ['/l ', '/lang ', '/language '],
             code: 'language',
-            result: 'Flags your message as spoken in the given language. Only the GM and other players with that language will be able to see the normal text.'
+            result: 'Your message will be spoken in the given language. Only the GM and other characters with that language will be able to see the normal text.'
         },
         {
             cmds: ['/r ', '/roll '],

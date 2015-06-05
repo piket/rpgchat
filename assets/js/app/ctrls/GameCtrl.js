@@ -168,6 +168,12 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
         }
     });
 
+    $scope.$watch('body', function(val) {
+        if(val.trim() == '/ooc') {
+            $scope.body = '';
+            $scope.as = $scope.user.username;
+        }
+    });
     // $(document).on('keypress', function(e) {
     //     console.log(e.which);
     // });
