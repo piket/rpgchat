@@ -40,6 +40,23 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
                     return text.split(' ').map(function(word) {
                         return encode.transform(word);
                     }).join(' ');
+                } else if(encode.pattern == 'font-word') {
+                    text = text.split(' ').map(function(word) {
+                        return encode.transform(word);
+                    }).join(' ');
+                    return '<span style="font-family:'+encode.font+';">'+text+'</span>';
+                } else if(encode.pattern == 'font-letter') {
+                    var newText = '<span style="font-family:'+encode.font+';">';
+                    for(var i = 0; i < text.length; i++) {
+                        if(text[i].match(/[ \.,-\/#!%\^&\*;:{}=\-_`~()|'"]/g)) {
+                            newText += text[i];
+                        } else if(encode[text[i]]) {
+                            newText += encode[text[i]];
+                        } else {
+                            newText += encode.default;
+                        }
+                    }
+                    return newText + '</span>';
                 } else {
                     var newText = "";
                     for(i = 0; i < text.length; i++) {
