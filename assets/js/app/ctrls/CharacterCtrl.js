@@ -12,7 +12,7 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
         for(var i = 0; i < $scope.game.characters.length; i++) {
             if($scope.game.characters[i].player === user.id) {
                 character = $scope.game.characters[i];
-                console.log('character loaded');
+                // console.log('character loaded');
                 $scope.name = character.name;
                 $scope.values = character.values;
                 $scope.color = character.color;
@@ -26,7 +26,7 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
             $scope.color = $scope.color;
             $scope.langauges = '';
         }
-        console.log($scope.sheet)
+        // console.log($scope.sheet)
         $scope.edit = {};
         $scope.sheet.forms.forEach(function(elm) {
             // console.log('elm',elm)
@@ -68,11 +68,11 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
 
     $scope.submitEdit = function(field) {
         $scope.editOff();
-        console.log('values',$scope.values);
+        // console.log('values',$scope.values);
     }
 
     $scope.clear = function(field) {
-        console.log('values',$scope.values)
+        // console.log('values',$scope.values)
         $scope.values[field] = $scope.temp;
         $scope.editOff();
     }
@@ -86,13 +86,13 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
     // }
 
     $scope.save = function() {
-        console.log('saving...',character);
+        // console.log('saving...',character);
         // formObj = objectify($('#sheet-form').serializeArray());
         // console.log('form',formObj);
         var lang = $scope.langauges.split(',').map(function(l) {
             return l.trim().toLowerCase()
         });
-        console.log('langs:',lang,$scope.langauges)
+        // console.log('langs:',lang,$scope.langauges)
 
         if(!character) {
             character = new Character();
@@ -105,15 +105,15 @@ RPGChat.controller('CharacterCtrl', ['$scope','$routeParams','$sce','$compile','
             character.player = user.id;
             character.game = $scope.game.id;
 
-            console.log('character',character)
+            // console.log('character',character)
 
             character.$save(function(data) {
-                console.log('character saved',data);
+                // console.log('character saved',data);
                 AlertService.alert('blue','Character '+$scope.name+' saved.');
             });
         } else {
             Character.update({id:character.id},{name:$scope.name,color:$scope.color,values:JSON.stringify($scope.values),langauges:lang}, function(data) {
-                console.log('character saved',data);
+                // console.log('character saved',data);
                 AlertService.alert('blue','Character '+$scope.name+' saved.');
             });
         }

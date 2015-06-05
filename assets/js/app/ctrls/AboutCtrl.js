@@ -96,5 +96,5 @@ RPGChat.controller('AboutCtrl', ['$scope','$sce', function($scope,$sce){
 
     ]
 
-    console.log('About loaded')
+    // console.log('About loaded')
 }]);

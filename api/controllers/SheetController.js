@@ -10,7 +10,7 @@ module.exports = {
     //     return res.send('creating sheet');
     // },
     index: function(req,res) {
-        console.log('sheet index hit',req.query)
+        // console.log('sheet index hit',req.query)
         if(req.query.systemId && req.query.systemId !== 'none') {
             Sheet.find({or: [{system: req.query.systemId},{system:'any'},{system:undefined}]}).exec(function(err,data) {
                 if(err) {

@@ -3,14 +3,14 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
     var msgIdx = 0;
     var chatWindow = $('#chatWindow');
     var chatView = $('#chat-view');
-    console.log('window',chatWindow)
+    // console.log('window',chatWindow)
     $scope.messages = [];
     $scope.previous = [];
     $scope.users = [];
     $scope.user = UserService.currentUser;
     $scope.user.langauges = [];
     $scope.to = [];
-    $scope.loading = true;
+    $scope.loading = false;
     $scope.characters = {};
     $scope.characters[$scope.user.username] = {color:'default',player:true};
     $scope.view = {};
@@ -68,12 +68,12 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
                     $timeout(function(){
                         chatView.scrollTop(chatWindow.height());
                     }, 0);
-                    console.log('chat data',data);
-                    $scope.loading = false;
+                    // console.log('chat data',data);
+                    // $scope.loading = false;
 
-                    console.log('room user',$scope.user);
-                    console.log('as',$scope.as)
-                    console.log('room game',$scope.game);
+                    // console.log('room user',$scope.user);
+                    // console.log('as',$scope.as)
+                    // console.log('room game',$scope.game);
                 });
             } else {
                 location.href='/account';
@@ -102,10 +102,10 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
         $scope.$evalAsync(function() {
             $scope.body = '';
         });
-        console.log(msgData);
+        // console.log(msgData);
         if(msgData.msg !== '') {
             io.socket.post('/api/chat/message',msgData,function(data, jwRes) {
-                console.log('message data',data)
+                // console.log('message data',data)
             });
         }
     }
@@ -127,12 +127,12 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
     }
 
     function addItemToChat(item) {
-        console.log('message recieved',$scope.user.id == $scope.game.gm.id)
+        // console.log('message recieved',$scope.user.id == $scope.game.gm.id)
         $scope.$evalAsync(function() {
             var msg = ChatService.parseChat(item,$scope.user,$scope.user.id == $scope.game.gm.id);
             $scope.messages.push(msg);
-            console.log('new msg',msg);
-            console.log('scroll:',chatWindow.scrollTop,chatWindow.scrollHeight);
+            // console.log('new msg',msg);
+            // console.log('scroll:',chatWindow.scrollTop,chatWindow.scrollHeight);
         // if(_.find(item.flags, {type:'roll'})) {
         //     $('#'+item.id).tooltip({delay:50});
         // }
@@ -145,26 +145,26 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
     $('#msg-body').on('keydown',function(e) {
         // console.log(e.which,e.shiftKey)
         if(e.which == 13 && !e.shiftKey) {
-            console.log('sending chat')
+            // console.log('sending chat')
             $scope.sendChat();
         } else if(e.which == 13 && e.shiftKey) {
             $scope.$evalAsync(function() {
                 $scope.body += '\n';
             });
         } else if(e.which == 38 && e.shiftKey && msgIdx > 0) {
-            console.log(msgIdx,'previous',$scope.previous);
+            // console.log(msgIdx,'previous',$scope.previous);
             msgIdx--;
             $scope.$evalAsync(function() {
                 $scope.body = $scope.previous[msgIdx];
             });
-            console.log($scope.body);
+            // console.log($scope.body);
         } else if(e.which == 40 && e.shiftKey && msgIdx < $scope.previous.length - 1) {
-            console.log(msgIdx,'previous',$scope.previous);
+            // console.log(msgIdx,'previous',$scope.previous);
             msgIdx++;
             $scope.$evalAsync(function() {
                 $scope.body = $scope.previous[msgIdx];
             });
-            console.log($scope.body);
+            // console.log($scope.body);
         }
     });
 

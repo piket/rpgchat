@@ -1,12 +1,12 @@
 var RPGChat = angular.module('RPGChat', ['draggable','sheetItem','ngRoute','ngResource','ngSanitize']);
 
 RPGChat.run(['$rootScope','$location','$routeParams','Game','UserService','AlertService', function($rootScope,$location,$routeParams,Game,UserService,AlertService){
-    console.log('RPGChat app is loaded.');
+    // console.log('RPGChat app is loaded.');
 
     $rootScope.$on('$locationChangeStart', function(event,next,current) {
         // console.log('event:',event,'next:',next);
         var nextRoute = next.substr(next.indexOf(location.host) + location.host.length);
-        console.log('route:',location.host,nextRoute);
+        // console.log('route:',location.host,nextRoute);
         if(nextRoute.length > 1) {
             UserService.check(function(err,data){
                 // console.log('check',err,data);
@@ -15,7 +15,7 @@ RPGChat.run(['$rootScope','$location','$routeParams','Game','UserService','Alert
                     $location.path('/');
                     AlertService.alert('red','You do not have permission to view this page. Please sign up or login.');
                 } else if(next.indexOf('join') !== -1) {
-                    console.log('route params',$routeParams)
+                    // console.log('route params',$routeParams)
                     Game.get({id:$routeParams.id}, function(data) {
                         var game = data;
                         var user = UserService.currentUser.id;
@@ -32,12 +32,12 @@ RPGChat.run(['$rootScope','$location','$routeParams','Game','UserService','Alert
                             if(!playing) {
                                 Game.update({id:$routeParams.id},{players:game.players.concat([UserService.currentUser])});
                                 AlertService.add('green','You have joined '+game.name);
-                                location.href='/game/'+$routeParams.id+'/dashboard';
+                                $location.path('/game/'+$routeParams.id+'/dashboard');
                             } else {
                                 AlertService.add('yellow black-text','You have already joined this game.');
                             }
                         } else {
-                            console.log('game',game,'active',game.active)
+                            // console.log('game',game,'active',game.active)
                             AlertService.add('red','This game is not accepting any more players.');
                         }
                         event.preventDefault();

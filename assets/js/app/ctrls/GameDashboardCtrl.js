@@ -7,7 +7,7 @@ RPGChat.controller('GameDashboardCtrl', ['$scope','$routeParams','Game','UserSer
         $scope.gm = $scope.user.id == $scope.game.gm.id;
     });
 
-    console.log('game',$scope.game);
+    // console.log('game',$scope.game);
 
     $scope.edit = {
         description: false,

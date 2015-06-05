@@ -1,5 +1,5 @@
 RPGChat.controller('HomeCtrl', ['$scope','$location','UserService','AlertService', function($scope,$location,UserService,AlertService) {
-    console.log('Home loaded');
+    // console.log('Home loaded');
 
     $scope.showLogin = false;
     $scope.showSignup = false;
@@ -60,11 +60,11 @@ RPGChat.controller('HomeCtrl', ['$scope','$location','UserService','AlertService
             $scope.password = '';
             $scope.confirm = '';
             if(err) {
-                console.log('Error:',err);
+                // console.log('Error:',err);
                 if(typeof err != 'string') {
                     err.forEach(function(key) {
                         $scope.invalid[key] = true;
-                        console.log(key)
+                        // console.log(key)
                     });
                 }
                 AlertService.alert('red','Invalid entries, please try again.');

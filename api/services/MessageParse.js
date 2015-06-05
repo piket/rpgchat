@@ -24,7 +24,7 @@ var colorize = function(c) {
 
 module.exports = {
     parseMsgCmd: function(msgData) {
-        console.log('starting msg parse')
+        // console.log('starting msg parse')
         var msg = msgData.message.trim();
         var flags = msgData.flags || [];
         var as = msgData.as || '';
@@ -33,7 +33,7 @@ module.exports = {
             var endCmd = msg.indexOf(' ');
             var cmd = msg.substring(1,endCmd);
             var remaining = msg.substr(endCmd).trim()
-            console.log('remaining:'+remaining)
+            // console.log('remaining:'+remaining)
 
             switch(cmd) {
                 // whipser to a player
@@ -80,7 +80,7 @@ module.exports = {
                 case 'r':
                 case 'roll':
                     var context = this.getCmdParams(remaining);
-                    console.log('roll context',context)
+                    // console.log('roll context',context)
                     remaining = context.remaining;
                     param = context.param;
                     flags.push({type:'roll',value:this.rollDice(param),priority:0});
@@ -156,7 +156,7 @@ module.exports = {
         } else {
             var newData = msgData;
         }
-        console.log('parsed msg data:',newData);
+        // console.log('parsed msg data:',newData);
         return this.parseInlineCmd(newData);
     },
     getCmdParams: function(remaining) {
@@ -190,7 +190,7 @@ module.exports = {
                 collect[arr[i]] = true;
             }
         }
-        console.log(collect);
+        // console.log(collect);
         return Object.keys(collect);
     },
     rollDice: function(rollStr) {
@@ -227,7 +227,7 @@ module.exports = {
         var count = 1;
 
         for(var i = 0; i < msg.length; i++) {
-            console.log(i,msg.length);
+            // console.log(i,msg.length);
             var context = {};
             switch(msg[i]) {
                 case '(':
@@ -259,7 +259,7 @@ module.exports = {
                 case '*':
                     if(msg[i+1] === '*') {
                         subMsg = msg.substr(i+2);
-                        console.log(subMsg)
+                        // console.log(subMsg)
                         endParam = subMsg.indexOf('**');
                         if(endParam !== -1) {
                             if(subMsg[endParam+2] === '*') {
@@ -267,7 +267,7 @@ module.exports = {
                             }
                             msg = msg.substring(0,i) + '<b>' + subMsg.substring(0,endParam) + '</b>';
                             if(endParam < msg.length) msg += subMsg.substr(endParam+2);
-                            console.log(msg)
+                            // console.log(msg)
                         }
                     } else {
                         subMsg = msg.substr(i+1);

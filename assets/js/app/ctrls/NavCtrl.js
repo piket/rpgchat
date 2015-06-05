@@ -3,7 +3,7 @@ RPGChat.controller('NavCtrl', ['$scope','$location','UserService','AlertService'
 
     $scope.$watchCollection('UserService',function() {
         $scope.currentUser = UserService.currentUser;
-        console.log('user:',$scope.currentUser)
+        // console.log('user:',$scope.currentUser)
     });
 
     $scope.$on("$routeChangeSuccess", function () {

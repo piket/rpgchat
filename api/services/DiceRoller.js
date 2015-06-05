@@ -87,7 +87,7 @@ module.exports = {
         }
         if(pChar !== -1) {
             pNum = str.substring(pChar+1);
-            console.log('pNum str:',pNum);
+            // console.log('pNum str:',pNum);
             endIdx = pChar;
             if(pNum.indexOf('d') !== -1) {
                 pRoll = this.roll(pNum);
@@ -101,15 +101,15 @@ module.exports = {
                 pNum *= -1;
             }
         }
-        console.log('pRoll:',pRoll);
+        // console.log('pRoll:',pRoll);
         return {x:xNum,a:aNum,s:sNum,f:fNum,e:eNum,p:pNum,str:str.substr(endIdx),pRoll:pStr};
     },
     roll: function(string) {
-        console.log('roll string:',string)
+        // console.log('roll string:',string)
         var roll = this.parseRoll(string);
         var rollArr = [];
         var result = 0;
-        console.log('roll string',roll)
+        // console.log('roll string',roll)
         if(roll.s === null && roll.f === null && roll.e === null) {
             rollArr = this.roll_xda(roll.x,roll.a);
             result = rollArr.reduce(function(sum, r) {return sum + r},0);
@@ -126,7 +126,7 @@ module.exports = {
             rollArr = rollArr.map(function(r) {return r[0]});
         }
         result += roll.p || 0;
-        console.log('result',{rolls:rollArr, result:result})
+        // console.log('result',{rolls:rollArr, result:result})
         return {rolls:'['+rollArr+']'+roll.pRoll, result:result};
     }
 };

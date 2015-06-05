@@ -5,7 +5,7 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
     var renameInput = $('#rename-input');
 
     $scope.sortNames = function(item) {
-        console.log(item.name);
+        // console.log(item.name);
         if(item.name == 'other') return "zzzzzzzzzzzzzzz";
         return item.name.toLowerCase();
     }
@@ -47,7 +47,7 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
     });
 
     $scope.$watch('system', function(val) {
-        console.log('system changed',val);
+        // console.log('system changed',val);
         if(val == '556a08b5713cc6cf4056bde5' || val == '55709a9728587811002fabec') {
             val = 'none';
         }
@@ -94,7 +94,7 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
             game.gm = UserService.currentUser.id;
             game.sheetTemplate = $scope.sheet;
             game.$save(function(data) {
-                console.log(data);
+                // console.log(data);
                 AlertService.add('purple','You have created the game '+$scope.name);
                 $location.path('/game/'+data.id+'/dashboard');
             });
@@ -111,7 +111,7 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
         game.gm = UserService.currentUser.id;
         game.sheetTemplate = $scope.sheet;
         game.$save(function(data) {
-            console.log(data);
+            // console.log(data);
             AlertService.add('purple','You have created the game '+$scope.name);
             $location.path('/game/'+data.id+'/dashboard');
         });
@@ -159,7 +159,7 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
             elm = angular.element(e);
             y = parseInt(elm.css('top'));
             x = parseInt(elm.css('left'));
-            console.log('x',x,'y',y);
+            // console.log('x',x,'y',y);
             if(x <= 745 && x >= 0 && y <= 745 && y >= -15) {
                 var obj = parseElements(elm.children()[0], elm.children()[1], i);
                 if(names[obj.name]) {
@@ -182,10 +182,10 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
             if($scope.custom.system !== 'any') sheet.system = $scope.custom.system;
             // sheet.forms = JSON.stringify(items);
             sheet.forms = items;
-            console.log(sheet);
+            // console.log(sheet);
             // sheet.$save(function(data) {
             Sheet.create(sheet, function(data) {
-                console.log(data);
+                // console.log(data);
                 $scope.sheets[$scope.sheets.length-1] = data;
                 $scope.$evalAsync(function() {
                     $scope.sheet = data.id;
@@ -218,7 +218,7 @@ RPGChat.controller('CreateGameCtrl', ['$scope','$location','AlertService','UserS
             $scope.label.name = template.text();
         })
 
-        console.log(template,$scope.label.name);
+        // console.log(template,$scope.label.name);
         $('#rename').openModal();
         renameInput.focus();
     });

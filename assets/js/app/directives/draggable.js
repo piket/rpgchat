@@ -16,8 +16,8 @@ angular.module('draggable',[]).directive('draggable', ['$document','$compile',fu
         },
         restrict: 'E',
         link: function($scope,$element){
-            console.log($element)
-            console.log($scope);
+            // console.log($element)
+            // console.log($scope);
             var gridSizeY = $scope.gridY || 0;
             var gridSizeX = $scope.gridX || 0;
             var gridOffsetY = $scope.offsetY || 0;
@@ -178,10 +178,10 @@ angular.module('draggable',[]).directive('draggable', ['$document','$compile',fu
                 if(destroyY && (y < destroyY.min || y > destroyY.max)) {
                     destroyElm = true;
                 }
-                console.log("y by x",y,x);
+                // console.log("y by x",y,x);
 
                 if(destroyElm) {
-                    console.log('destroyed');
+                    // console.log('destroyed');
                     $element.remove();
                     $scope.$destroy();
                 } else {

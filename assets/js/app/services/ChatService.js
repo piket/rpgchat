@@ -148,7 +148,7 @@ RPGChat.factory('ChatService', ['$sce','LangaugeService',function($sce,LangaugeS
                 }
             });
 
-console.log('chat output',output)
+// console.log('chat output',output)
 
             if(label) {
                 text = '<span class="as">'+item.as+':</span> '+output.join(' ');
@@ -158,7 +158,7 @@ console.log('chat output',output)
                 text = output.join(' ');
             }
 
-            console.log('parsed msg:',text)
+            // console.log('parsed msg:',text)
 
             return {
                 classes: classes.join(' '),

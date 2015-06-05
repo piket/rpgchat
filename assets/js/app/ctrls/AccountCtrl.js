@@ -1,8 +1,8 @@
 RPGChat.controller('AccountCtrl', ['$scope','UserService', function($scope,UserService){
-    console.log('Account ctrl loaded');
+    // console.log('Account ctrl loaded');
     UserService.info(function(err,data) {
         $scope.user = data;
-        console.log('Account user:',$scope.user);
+        // console.log('Account user:',$scope.user);
     });
 
     $scope.characterGame = function(charId) {
