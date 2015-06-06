@@ -3,8 +3,9 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
     var msgIdx = 0;
     var chatWindow = $('#chatWindow');
     var chatView = $('#chat-view');
+    var Queue = require('/js/queue');
     // console.log('window',chatWindow)
-    $scope.messages = [];
+    $scope.messages = new Queue();
     $scope.previous = [];
     $scope.users = [];
     $scope.user = UserService.currentUser;
@@ -45,12 +46,17 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
                             $scope.values['C'+character.id] = character.values;
                         }
                     });
+
                     data.messages.forEach(function(msg) {
                         if(msg.to.length === 0 || msg.from === $scope.user.id || contains(msg.to,$scope.characters)) {
                             // console.log('message recieved',$scope.user.id == $scope.game.gm.id);
                             $scope.messages.push(ChatService.parseChat(msg,$scope.user,$scope.user.id == $scope.game.gm.id));
                         }
                     });
+
+                    if($scope.messages.length > 39) {
+                        $scope.messages.slice($scope.messages.length - 40);
+                    }
                     // $scope.messages = data.messages.filter(function(msg) {
                     //     if(msg.to.length === 0 || msg.from === user.id || contains(msg.to,$scope.characters)) {
                     //         return true;
@@ -64,6 +70,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
                     //     console.log('message recieved',$scope.user.id == $scope.game.gm.id);
                     //     return ChatService.parseChat(msg,$scope.user,$scope.user.id == $scope.game.gm.id);
                     // });
+
                     $scope.messages.push({classes:'system',message:'Welcome to '+$scope.game.name+' chat.'});
                     $timeout(function(){
                         chatView.scrollTop(chatWindow.height());
@@ -132,6 +139,9 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
             var msg = ChatService.parseChat(item,$scope.user,$scope.user.id == $scope.game.gm.id);
             $scope.$evalAsync(function() {
                 $scope.messages.push(msg);
+                if($scope.messages.length > 30) {
+                    $scope.messages.shift();
+                }
             // console.log('new msg',msg);
             // console.log('scroll:',chatWindow.scrollTop,chatWindow.scrollHeight);
             // if(_.find(item.flags, {type:'roll'})) {

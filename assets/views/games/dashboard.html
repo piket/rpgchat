@@ -2,7 +2,8 @@
 <h5 class="center">Dashboard</h5>
 <div class="row">
     <div class="col s12 m12 l12 center">
-        <a href="/game/{{game.id}}" class="waves-effect waves-light btn-large purple"><h5>Enter game room</h5></a>
+        <a ng-if="!game.active" href="/game/{{game.id}}/archive" class="waves-effect waves-light btn-large purple"><h5>Enter Game Archive</h5></a>
+        <a ng-if="game.active" href="/game/{{game.id}}" class="waves-effect waves-light btn-large purple"><h5>Enter Game Room</h5></a>
     </div>
 </div>
 <div class="row">
