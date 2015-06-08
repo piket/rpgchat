@@ -1,3 +1,7 @@
+h1,h2,h3,h4 {
+    font-family: 'Lakki Reddy', cursive;
+}
+
 a {
     color: #9c27b0;
 }
@@ -9,6 +13,26 @@ a {
 
 .menu-btn>ul {
     top: 70px;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+@media screen and (max-width: 609px) {
+    .menu-btn {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: inline;
+        top: 0;
+        right: 0;
+    }
+
+    .mobile-menu>ul {
+        top: 55px;
+    }
 }
 
 /* label focus color */
@@ -118,16 +142,16 @@ a {
     padding: 0px 4px 4px 4px;
 }
 
-.card {
+.result .card {
     margin: 0.5rem 0.5rem 1rem 0.5rem;
     height: 200px;
 }
 
-.card .card-action {
+.result .card .card-action {
     border-top: 1px solid #fff;
 }
 
-.card .card-content {
+.result .card .card-content {
     height: 132px;
 }
 
@@ -166,6 +190,6 @@ a {
     width: 80%;
 }
 
-.command-table tr td:first-child {
+/*.command-table tr td:first-child {
     min-width: 416px;
-}
+}*/

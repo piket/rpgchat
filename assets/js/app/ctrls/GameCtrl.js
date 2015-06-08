@@ -4,6 +4,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
     var chatWindow = $('#chatWindow');
     var chatView = $('#chat-view');
     var limit = 30;
+    var temp = '';
     // console.log('window',chatWindow)
     $scope.messages = [];
     $scope.previous = [];
@@ -18,6 +19,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
     $scope.values = {};
 
     io.socket.post('/api/chat/join',{gameId:$routeParams.id,userId:$scope.user.id},function(data, jwRes) {
+        // console.log(data);
         if(data) {
             if(data.error) {
                 if(data.error == 'no player') {
@@ -29,15 +31,16 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
                 } else {
                     AlertService.alert('yellow black-text','Internal service error: '+data.error);
                 }
-            } else {
-                // $scope.users.push($scope.user.username);
-            }
+            } // else {
+                // $scope.users = data.current;
+            // }
 
             if(!data.error && Array.isArray(data.messages)) {
                 $scope.$evalAsync(function(){
                     $scope.as = $scope.user.username;
                     $scope.game = data;
                     $scope.sheet = data.sheetTemplate;
+                    $scope.users = data.currentUsers;
                     $scope.game.characters.forEach(function(character) {
                         $scope.view[character.id] = false;
                         $scope.characters[character.name] = {color:character.color, player:(character.player == $scope.user.id)};
@@ -83,6 +86,8 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
                     // console.log('room game',$scope.game);
                 });
             } else {
+                console.log(data)
+                debugger;
                 location.href='/account';
             }
         }
@@ -117,20 +122,24 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
         }
     }
 
-    // $scope.$watch('messages', function() {
-    //     chatView.scrollTop(chatWindow.height());
-    // });
+    $scope.$on('$locationChangeStart', function() {
+        io.socket.post('/api/chat/leave');
+    });
 
     io.socket.on('userleave',removeUser);
     io.socket.on('userjoin',addUser);
     io.socket.on('newmessage',addItemToChat);
 
-    function addUser(user) {
-        // $scope.users.push(user.username);
+    function addUser(data) {
+        $scope.$evalAsync(function() {
+            $scope.users = data.users;
+        });
     }
 
-    function removeUser(user) {
-        // $scope.users.splice($scope.users.indexOf(user.username),1);
+    function removeUser(data) {
+        $scope.$evalAsync(function() {
+            $scope.users = data.users;
+        });
     }
 
     function addItemToChat(item) {
@@ -165,16 +174,19 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
             });
         } else if(e.which == 38 && e.shiftKey && msgIdx > 0) {
             // console.log(msgIdx,'previous',$scope.previous);
+            if(msgIdx = $scope.previous.length) {
+                temp = $scope.body;
+            }
             msgIdx--;
             $scope.$evalAsync(function() {
                 $scope.body = $scope.previous[msgIdx];
             });
             // console.log($scope.body);
-        } else if(e.which == 40 && e.shiftKey && msgIdx < $scope.previous.length - 1) {
+        } else if(e.which == 40 && e.shiftKey && msgIdx < $scope.previous.length) {
             // console.log(msgIdx,'previous',$scope.previous);
             msgIdx++;
             $scope.$evalAsync(function() {
-                $scope.body = $scope.previous[msgIdx];
+                $scope.body = $scope.previous[msgIdx] || temp;
             });
             // console.log($scope.body);
         }
@@ -186,20 +198,15 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
             $scope.as = $scope.user.username;
         }
     });
-    // $(document).on('keypress', function(e) {
-    //     console.log(e.which);
-    // });
 
-    // $scope.$watchCollection('messages', function(newArr) {
-    //     // console.log('new message item:',newArr)
-    //     newArr.forEach(function(msg) {
-    //         if(msg.roll && rolls.indexOf(msg.id) === -1) {
-    //             console.log('loading tooltip',msg.id)
-    //             $('#'+msg.id).tooltip({delay:50});
-    //             rolls.push(msg.id);
-    //         }
-    //     })
-    // });
+    $scope.to = function(username) {
+        if($scope.body) {
+            $scope.body = '/whisper "' + username + '" ' + $scope.body;
+        } else {
+            $scope.body = '/whisper "'+ username + '" ';
+        }
+    }
+
     $scope.validSheets = function() {
         if(!$scope.game) return false;
         return $scope.game.characters.filter(function(c) {

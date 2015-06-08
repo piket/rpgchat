@@ -10,7 +10,7 @@ module.exports = {
         // console.log('game queries:',req.query)
         if(req.query.q) {
             Game.find({name: {'contains':req.query.q}, active: true, public: true, limit:req.query.limit, sort:'createdAt DESC'})
-                .populate('gm').populate('system').exec(function(err, games) {
+                .populate('gm').populate('system').populate('players').exec(function(err, games) {
                     // console.log('data',games)
                     if(err) {
                         res.send([]);
@@ -20,7 +20,7 @@ module.exports = {
                 });
         } else if (req.query.p) {
             Game.find({active: true, public: true, skip:(parseInt(req.query.p)*parseInt(req.query.limit)), limit:req.query.limit, sort:'createdAt DESC'})
-                .populate('gm').populate('system').exec(function(err, games) {
+                .populate('gm').populate('system').populate('players').exec(function(err, games) {
                     // console.log('data',games)
                     if(err) {
                         res.send([]);

@@ -47,6 +47,10 @@ module.exports = {
     playingGames: {
         collection: 'Game',
         via: 'players'
+    },
+    pendingGames: {
+        collection: 'Game',
+        via: 'pending'
     }
   },
   beforeCreate: function(values, callback) {

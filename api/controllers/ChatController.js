@@ -31,12 +31,25 @@ module.exports = {
             }
 
             if(user) {
-                // console.log('correct user')
-                sails.sockets.broadcast('chat_'+gameId,'userjoin',user);
+                if(game.currentUsers) {
+                    console.log('connecting user: add to array')
+                    game.currentUsers.push(user.username);
+                } else {
+                    console.log('connecting user: creating array')
+                    game.currentUsers = [user.username];
+                }
+
+                game.save();
+
+                sails.sockets.broadcast('chat_'+gameId,'userjoin', {users:game.currentUsers});
                 sails.sockets.join(req.socket,'chat_'+game.id);
 
                 req.socket.on('disconnect', function() {
-                    sails.sockets.broadcast('chat_'+gameId,'userleave',user)
+                    var u = game.currentUsers.indexOf(user.username);
+                    game.currentUsers.splice(u,1);
+                    console.log('disconnecting user')
+                    game.save();
+                    sails.sockets.broadcast('chat_'+gameId,'userleave', {users:game.currentUsers})
                     // idx = game.currentUsers.indexOf(user);
                     // game.currentUsers.splice(idx,1);
                 });
@@ -54,8 +67,16 @@ module.exports = {
                 res.send({error:'no player'});
             }
         }).catch(function(err) {
+            console.log("game error:",err);
             res.send({error:'no game'});
         });
+    },
+    leave: function(req,res) {
+        if(!req.isSocket) return res.badRequest();
+
+        var socketId = sails.sockets.id(req.socket);
+        sails.sockets.emit(socketId, 'disconnect');
+        res.send("disconnecting");
     },
     message: function(req,res) {
         var gameId = req.body.gameId;

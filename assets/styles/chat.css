@@ -24,9 +24,18 @@
     font-size: 80%;
 }
 
-#chat-view {
-    overflow-y: scroll;
-    max-height: 600px;
+@media screen and (max-device-height: 799px) {
+    #chat-view {
+        overflow-y: scroll;
+        max-height: 400px;
+    }
+}
+
+@media screen and (min-device-height: 800px) {
+    #chat-view {
+        overflow-y: scroll;
+        max-height: 600px;
+    }
 }
 
 .chat-message {
@@ -170,6 +179,22 @@ span.think {
     margin-right: 20px;
     padding: 5px 5px 5px 5px;
     text-align: center;
-    border: 5px solid #9c27b0;
-    border-radius: 10px;
+    border: 2px solid #9c27b0;
+    background-color: #ce93d8;
+    /*border-radius: 10px;*/
+}
+
+.user-display {
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    border: 2px solid #9c27b0;
+    background-color: #ce93d8;
+}
+
+.chat-box {
+    margin-top: 10px;
+}
+
+.archive-row {
+    border-top: 1px solid #4a148c;
 }
