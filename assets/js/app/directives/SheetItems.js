@@ -26,10 +26,10 @@ angular.module('sheetItem', []).directive('sheetItem', ['$compile','$sce', funct
                 if(newVal) {
                     switch($scope.edit) {
                         case 'textarea':
-                            html = '<div class="input-field injected"><textarea name="'+$scope.name+'" class="" ng-model="values.'+$scope.name+'"></textarea><label ng-class="{active:values.'+$scope.name+'}">'+$scope.name+'</label></div>';
+                            html = '<div class="injected"><label ng-class="{active:values.'+$scope.name+'}">'+$scope.name+'</label><textarea name="'+$scope.name+'" class="" ng-model="values.'+$scope.name+'"></textarea></div>';
                             break;
                         case 'input-text':
-                            html = '<div class="input-field injected"><input type="text" name="'+$scope.name+'" ng-model="values.'+$scope.name+'"><label ng-class="{active:values.'+$scope.name+'}">'+$scope.name+'</label></div>';
+                            html = '<div class="injected"><label ng-class="{active:values.'+$scope.name+'}">'+$scope.name+'</label><input type="text" name="'+$scope.name+'" ng-model="values.'+$scope.name+'"></div>';
                             break;
                     }
                     // html += '<div class="btn-div">' +

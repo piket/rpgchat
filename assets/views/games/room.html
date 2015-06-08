@@ -1,14 +1,6 @@
 <h1 class="center">{{game.name}}</h1>
 <div class="row">
-    <div class="col s1 m1 l1">
-        <div class="row">
-            <a href="/game/{{game.id}}/archive" class="waves-effect waves-purple btn-flat col s12 m12 l12">Archive</a>
-        </div>
-        <div ng-repeat="character in validSheets()" class="row">
-            <a href="#" ng-click="view[character.id] = !view[character.id]" class="waves-effect waves-purple col s12 m12 l12 sheet-btn">{{character.name}}</a>
-        </div>
-    </div>
-    <div class="col s11 m5 l3">
+    <div class="col s12 m8 l9 chat-col">
         <div id="chat-view">
             <ul id="chatWindow" class="chat">
                 <li ng-repeat="msg in messages" class="chat-message {{msg.classes}}" ng-bind-html="msg.message">
@@ -25,7 +17,7 @@
                     Chat as
                 </div>
                 <div class="col s8 m8 l8">
-                <select ng-model="as" class="browser-default">
+                <select ng-model="as" class="browser-default chat-box">
                     <option ng-repeat="(char, val) in characters" ng-if="val.player" value="{{char}}" class="chat-{{val.color}} msg-color">{{char}}</option>
                 </select>
                 </div>
@@ -35,7 +27,18 @@
             </div>
         </form>
     </div>
-    <div class="col s12 m12 l4">
+    <div class="col s12 m4 l3">
+        <div ng-repeat="u in users" class="row">
+            <a ng-click="to(u)" class="waves-effect waves-purple btn-flat col s12 m12 l12">{{u}}</a>
+        </div>
+        <div class="row archive-row">
+            <a href="/game/{{game.id}}/archive" class="waves-effect waves-purple btn-flat col s12 m12 l12">Archive</a>
+        </div>
+        <!--<div ng-repeat="character in validSheets()" class="row">
+            <a href="#" ng-click="view[character.id] = !view[character.id]" class="waves-effect waves-purple col s12 m12 l12 sheet-btn">{{character.name}}</a>
+        </div>-->
+    </div>
+    <!--<div class="col s12 m12 l4">
         <div ng-repeat="character in validSheets()" id="{{character.id}}" ng-show="view[character.id]" class="character-pane">
             <h5 class="center">{{character.name}}</h5>
             <div class="character-sheet">
@@ -51,13 +54,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 <div ng-show="loading" class="loader valign-wrapper">
     <div class="progress valign">
       <div class="indeterminate"></div>
   </div>
 </div>
-<ul class="user-list">
+<!-- <ul class="user-list">
     <li ng-repeat="u in users" class="user-list-item">{{u}}</li>
-</ul>
+</ul> -->

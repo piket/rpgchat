@@ -36,6 +36,10 @@ module.exports = {
         collection: 'User',
         via: 'playingGames'
     },
+    pending: {
+        collection: 'User',
+        via: 'pendingGames'
+    },
     system: {
         model: 'System'
     },

@@ -72,8 +72,8 @@
             </div>
             <div class="col s3 m3 l3 sheet-toolbar">
                 <h6 class="center">Drag elements onto the sheet</h6>
-                <draggable class="template input-field" drag-template="true" destroy-y="{min:-16,max:746}" destroy-x="{min:0,max:746}" offset-x="0" offset-y="5" grid-x="20" grid-y="20" starting-y="5" starting-x="815"><textarea></textarea><label>Right Click to rename</label></draggable>
-                <draggable class="template input-field" drag-template="true" offset-x="0" offset-y="5" grid-y="20" grid-x="20" starting-y="60" starting-x="815"><input type="text"><label>Right Click to rename</label></draggable>
+                <draggable class="template injected" drag-template="true" destroy-y="{min:-16,max:746}" destroy-x="{min:0,max:746}" offset-x="0" offset-y="5" grid-x="20" grid-y="20" starting-y="5" starting-x="815"><label>Right Click to rename</label><textarea></textarea></draggable>
+                <draggable class="template injected" drag-template="true" offset-x="0" offset-y="5" grid-y="20" grid-x="20" starting-y="60" starting-x="815"><label>Right Click to rename</label><input type="text"></draggable>
             </div>
             <div class="col s2 m2 l2 sheet-actions">
                 <a ng-click="saveSheet()" class="waves-effect waves-light btn purple custom-btn">Save</a>

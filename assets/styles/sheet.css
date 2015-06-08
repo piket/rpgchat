@@ -82,3 +82,8 @@
     top: 55px;
     right: 5px;
 }
+
+.injected input {
+    border: 1px solid #eee;
+    margin: 0 auto;
+}
