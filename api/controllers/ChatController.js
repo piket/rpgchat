@@ -11,7 +11,7 @@ module.exports = {
 	join: function(req,res) {
         var gameId = req.body.gameId;
         // console.log(gameId);
-        Game.findOne(gameId).populateAll().then(function(game) {
+        Game.findOne(gameId).populate('gm').populate('players').populate('characters').populate('sheetTemplate').populate('messages').then(function(game) {
             // console.log('game found');
             user = null;
             if(!game.active) {
