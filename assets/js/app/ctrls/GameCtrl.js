@@ -24,13 +24,14 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
             if(data.error) {
                 if(data.error == 'no player') {
                     AlertService.add('red','You must be playing the game to join the chat.');
-                    location.href='/account';
+                    // location.href='/account';
                 } else if(data.error = 'archived') {
                     AlertService.alert('yellow black-text','This game has been archived.');
-                    location.href='/game/'+data.id+'/archive';
+                    // location.href='/game/'+data.id+'/archive';
                 } else {
                     AlertService.alert('yellow black-text','Internal service error: '+data.error);
                 }
+                console.log(data)
             } // else {
                 // $scope.users = data.current;
             // }
