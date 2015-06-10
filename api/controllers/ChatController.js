@@ -38,8 +38,9 @@ module.exports = {
                     console.log('connecting user: creating array')
                     game.currentUsers = [user.username];
                 }
-
+                console.log('saving game...');
                 game.save();
+                console.log('...game saved',game);
 
                 sails.sockets.broadcast('chat_'+gameId,'userjoin', {users:game.currentUsers});
                 sails.sockets.join(req.socket,'chat_'+game.id);
