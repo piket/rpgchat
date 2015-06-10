@@ -24,7 +24,8 @@ module.exports = {
         defaultsTo: true
     },
     currentUsers: {
-        type: 'array'
+        type: 'array',
+        defaultsTo: []
     },
 
     ////// Associations //////
