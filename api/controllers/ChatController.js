@@ -40,6 +40,7 @@ module.exports = {
                 } else {
                     console.log('connecting user: creating array')
                     game.currentUsers = [user.username];
+                    console.log(game)
                 }
                 console.log('saving game...');
                 game.save();

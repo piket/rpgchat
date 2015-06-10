@@ -1,5 +1,8 @@
 RPGChat.controller('HomeCtrl', ['$scope','$location','UserService','AlertService', function($scope,$location,UserService,AlertService) {
-    // console.log('Home loaded');
+    console.log('Home loaded',UserService.currentUser);
+    if(UserService.currentUser) {
+        $location.path('/account');
+    }
 
     $scope.showLogin = false;
     $scope.showSignup = false;
