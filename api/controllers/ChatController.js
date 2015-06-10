@@ -12,7 +12,7 @@ module.exports = {
         var gameId = req.body.gameId;
         // console.log(gameId);
         Game.findOne(gameId).populate('gm').populate('players').populate('characters').populate('sheetTemplate').populate('messages').then(function(game) {
-            // console.log('game found');
+            console.log('game found',game);
             user = null;
             if(!game.active) {
                 sendGame = game;
@@ -61,6 +61,7 @@ module.exports = {
                 // }
 
                 // console.log('...pushing complete')
+                console.log('sending game',game)
                 res.send(game);
             } else {
                 // console.log('no user');
