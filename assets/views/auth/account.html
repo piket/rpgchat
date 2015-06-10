@@ -1,35 +1,37 @@
 <h1 class="center">Welcome {{user.username}}</h1>
 <div class="row">
     <div class="col s12 m6 l4">
-        <h5 class="pane-header">
+        <h5 class="pane-header purple white-text">
             Your Games
         </h5>
         <ul class="collection account-pane">
             <li ng-repeat="game in user.playingGames" class="collection-item" ng-class="{archived:!game.active}">
                 <h6>
-                    {{game.name}}
+                    {{game.name}} <span ng-if="!game.active">(archived)</span>
                 </h6>
                 <a href="/game/{{game.id}}/dashboard" class="btn waves-effect waves-light purple dash-btn" title="Game Info"><i class="mdi-action-info"></i></a>
-                <a href="/game/{{game.id}}" class="btn waves-effect waves-light purple chat-btn" title="Game Chat"><i class="mdi-communication-chat"></i></a>
+                <a href="/game/{{game.id}}" ng-if="game.active" class="btn waves-effect waves-light purple chat-btn" title="Game Chat"><i class="mdi-communication-chat"></i></a>
+                <a href="/game/{{game.id}}/archive" ng-if="!game.active" class="btn waves-effect waves-light purple chat-btn" title="Game Archive"><i class="mdi-content-archive"></i></a>
             </li>
         </ul>
     </div>
     <div class="col s12 m6 l4">
-        <h5 class="pane-header">
+        <h5 class="pane-header purple white-text">
             Your GMed Games
         </h5>
         <ul class="collection account-pane">
             <li ng-repeat="game in user.gmGames" class="collection-item" ng-class="{archived:!game.active}">
                 <h6>
-                    {{game.name}}
+                    {{game.name}} <span ng-if="!game.active">(archived)</span>
                 </h6>
                 <a href="/game/{{game.id}}/dashboard" class="btn waves-effect waves-light purple dash-btn" title="Game Dashboard"><i class="mdi-action-dashboard"></i></a>
-                <a href="/game/{{game.id}}" class="btn waves-effect waves-light purple chat-btn" title="Game Chat"><i class="mdi-communication-chat"></i></a>
+                <a href="/game/{{game.id}}" ng-if="game.active" class="btn waves-effect waves-light purple chat-btn" title="Game Chat"><i class="mdi-communication-chat"></i></a>
+                <a href="/game/{{game.id}}/archive" ng-if="!game.active" class="btn waves-effect waves-light purple chat-btn" title="Game Archive"><i class="mdi-content-archive"></i></a>
             </li>
         </ul>
     </div>
     <div class="col s12 m6 l4">
-        <h5 class="pane-header">
+        <h5 class="pane-header purple white-text">
             Your Characters
         </h5>
         <div class="collection account-pane">
