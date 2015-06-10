@@ -33,7 +33,7 @@ module.exports = {
             if(user) {
                 if(game.currentUsers) {
                     console.log('connecting user: add to array')
-                    game.currentUsers.push(user.username);
+                    game.currentUsers = game.currentUsers.concat([user.username]);
                 } else {
                     console.log('connecting user: creating array')
                     game.currentUsers = [user.username];
