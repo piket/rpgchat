@@ -31,17 +31,18 @@ module.exports = {
             }
 
             if(user) {
-                if(game.currentUsers && game.currentUsers.length > 0) {
-                    console.log('connecting user: add to array')
-                    // var currentArr = game.currentUsers.concat([user.username]);
-                    // console.log(currentArr);
-                    // game.currentUsers = currentArr;
-                    game.currentUsers.push(user.username);
-                } else {
-                    console.log('connecting user: creating array')
-                    game.currentUsers = [user.username];
-                    console.log(game)
-                }
+                // if(game.currentUsers && game.currentUsers.length > 0) {
+                //     console.log('connecting user: add to array')
+                //     // var currentArr = game.currentUsers.concat([user.username]);
+                //     // console.log(currentArr);
+                //     // game.currentUsers = currentArr;
+                //     game.currentUsers.push(user.username);
+                // } else {
+                //     console.log('connecting user: creating array')
+                //     game.currentUsers = [user.username];
+                //     console.log(game)
+                // }
+                game.currentUsers += ','+user.username;
                 console.log('saving game...');
                 game.save();
                 console.log('...game saved',game);
@@ -51,7 +52,7 @@ module.exports = {
 
                 req.socket.on('disconnect', function() {
                     var u = game.currentUsers.indexOf(user.username);
-                    game.currentUsers.splice(u,1);
+                    game.currentUsers = game.currentUsers.substring(0,u) + game.currentUsers.substr(u+user.username.length+1);
                     console.log('disconnecting user')
                     game.save();
                     sails.sockets.broadcast('chat_'+gameId,'userleave', {users:game.currentUsers})

@@ -41,7 +41,7 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
                     $scope.as = $scope.user.username;
                     $scope.game = data;
                     $scope.sheet = data.sheetTemplate;
-                    $scope.users = data.currentUsers;
+                    $scope.users = data.currentUsers.split(',');
                     $scope.game.characters.forEach(function(character) {
                         $scope.view[character.id] = false;
                         $scope.characters[character.name] = {color:character.color, player:(character.player == $scope.user.id)};
@@ -133,13 +133,13 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
 
     function addUser(data) {
         $scope.$evalAsync(function() {
-            $scope.users = data.users;
+            $scope.users = data.users.split(',');
         });
     }
 
     function removeUser(data) {
         $scope.$evalAsync(function() {
-            $scope.users = data.users;
+            $scope.users = data.users.split(',');
         });
     }
 
