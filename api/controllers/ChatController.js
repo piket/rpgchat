@@ -11,8 +11,8 @@ module.exports = {
 	join: function(req,res) {
         var gameId = req.body.gameId;
         // console.log(gameId);
-        Game.findOne(gameId).populate('gm').populate('players').populate('characters').populate('sheetTemplate').populate('messages').then(function(game) {
-            console.log('game found',game);
+        Game.findOne(gameId).populateAll().then(function(game) {
+            // console.log('game found');
             user = null;
             if(!game.active) {
                 sendGame = game;
@@ -31,28 +31,22 @@ module.exports = {
             }
 
             if(user) {
-                // if(game.currentUsers && game.currentUsers.length > 0) {
-                //     console.log('connecting user: add to array')
-                //     // var currentArr = game.currentUsers.concat([user.username]);
-                //     // console.log(currentArr);
-                //     // game.currentUsers = currentArr;
-                //     game.currentUsers.push(user.username);
-                // } else {
-                //     console.log('connecting user: creating array')
-                //     game.currentUsers = [user.username];
-                //     console.log(game)
-                // }
-                game.currentUsers += ','+user.username;
-                console.log('saving game...');
-                game.save();
-                console.log('...game saved',game);
+                if(game.currentUsers) {
+                    console.log('connecting user: add to array')
+                    game.currentUsers.push(user.username);
+                } else {
+                    console.log('connecting user: creating array')
+                    game.currentUsers = [user.username];
+                }
+
+                // game.save();
 
                 sails.sockets.broadcast('chat_'+gameId,'userjoin', {users:game.currentUsers});
                 sails.sockets.join(req.socket,'chat_'+game.id);
 
                 req.socket.on('disconnect', function() {
                     var u = game.currentUsers.indexOf(user.username);
-                    game.currentUsers = game.currentUsers.substring(0,u) + game.currentUsers.substr(u+user.username.length+1);
+                    game.currentUsers.splice(u,1);
                     console.log('disconnecting user')
                     game.save();
                     sails.sockets.broadcast('chat_'+gameId,'userleave', {users:game.currentUsers})
@@ -67,7 +61,6 @@ module.exports = {
                 // }
 
                 // console.log('...pushing complete')
-                console.log('sending game',game)
                 res.send(game);
             } else {
                 // console.log('no user');
