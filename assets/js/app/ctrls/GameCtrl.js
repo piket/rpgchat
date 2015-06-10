@@ -88,8 +88,8 @@ RPGChat.controller('GameCtrl', ['$scope','$routeParams','$sce','$timeout','Game'
                 });
             } else {
                 console.log(data)
-                debugger;
-                location.href='/account';
+                // debugger;
+                // location.href='/account';
             }
         }
     });
