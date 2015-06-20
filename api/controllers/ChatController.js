@@ -45,8 +45,8 @@ module.exports = {
                 sails.sockets.join(req.socket,'chat_'+game.id);
 
                 req.socket.on('disconnect', function() {
-                    var u = game.currentUsers.indexOf(user.username);
-                    game.currentUsers.splice(u,1);
+                    // var u = game.currentUsers.indexOf(user.username);
+                    // game.currentUsers.splice(u,1);
                     console.log('disconnecting user')
                     game.save();
                     sails.sockets.broadcast('chat_'+gameId,'userleave', {users:game.currentUsers})
